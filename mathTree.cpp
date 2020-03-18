@@ -17,7 +17,7 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 		for (size_t i(0); i < expression.size(); i++)
 			if (std::search(it->begin(), it->end(), expression.begin() + i, expression.begin() + i + 1) != it->end() && !inBrackets(expression, i))
 				if (it != operators.begin()) //из-за некоторые проблемы с '^' в консоле
-					return new mathTree::mathNode(
+					return new mathNode(
 						std::string(1, *(expression.begin() + 1)),
 						OPER,
 						parseNode(delBrackets(std::string(expression.begin(), expression.begin() + i))),
@@ -40,7 +40,7 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 
 	if (isfunction(expression))
 	{
-		std::string::iterator startScan = std::search(expression.begin(), expression.end(), '(');
+		std::string::iterator startScan = std::find(expression.begin(), expression.end(), '(');
 		int openBrackets = 0;
 
 		mathNode *funcNode = new mathNode(std::string(expression.begin(), startScan), FUNC);
@@ -65,10 +65,9 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 	return new mathNode(expression, UNDEF); //undefine
 }
 
-mathTree::mathTree(mathTree &newRoot)
+/*mathTree::mathTree(mathTree &newRoot)
 {
-
-}
+}*/
 
 //========================  mathTree::mathNode  ============================
 
