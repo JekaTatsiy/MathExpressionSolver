@@ -19,14 +19,19 @@ class mathTree
 		std::string arg;
 		TypesNode type;
 		std::vector<mathNode *> params;
+
+		mathNode(std::string act, TypesNode type);
+		mathNode(std::string act, TypesNode type, mathNode *a);
+		mathNode(std::string act, TypesNode type, mathNode *a, mathNode *b);
+		~mathNode();
 	};
 
 	mathNode *root;
+	std::vector<std::string> variables;
+	std::vector<double> valuesVariables;
 
+public:
 	mathTree();
 	mathTree(std::string);
 	mathTree(mathTree &newRoot);
-
-
-	
 };
