@@ -112,6 +112,46 @@ void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
 	std::cout << std::endl;
 }
 
+void mathTree::clear()
+{
+	variables.clear();
+	valuesVariables.clear();
+	delete root;
+}
+
+void mathTree::init()
+{
+	double inputValues;
+	std::cout << "input values:" << std::endl;
+	for (size_t i(0); i < variables.size(); i++)
+	{
+		std::cout << variables[i] << ": ";
+		std::cin >> inputValues;
+		valuesVariables.push_back(inputValues);
+	}
+}
+void mathTree::init(std::vector<double> val)
+{
+	if (val.size() == variables.size())
+		valuesVariables = val;
+}
+void mathTree::clearValues()
+{
+	valuesVariables.clear();
+}
+
+double mathTree::calc()
+{
+	return root->getResult(variables, valuesVariables);
+}
+double mathTree::calc(std::vector<double> val)
+{
+	init(val);
+	double res = calc();
+	clearValues();
+	return res;
+}
+
 /*mathTree::mathTree(mathTree &newRoot)
 {
 }*/
@@ -139,7 +179,7 @@ mathTree::mathNode::mathNode(std::string act, Types tp, mathNode *a, mathNode *b
 	params.push_back(b);
 }
 
-mathTree::mathNode::~mathNode() //возможно работает неправильно
+mathTree::mathNode::~mathNode()
 {
 	for (auto i : params)
 		delete i;
@@ -149,4 +189,43 @@ mathTree::mathNode::~mathNode() //возможно работает неправ
 void mathTree::mathNode::addParam(mathNode *param)
 {
 	params.push_back(param);
+}
+
+double mathTree::mathNode::getResult(std::vector<std::string> var, std::vector<double> valVar)
+{
+	if (this->type == OPER)
+	{
+		if (arg == "+")
+			return params[0]->getResult(var, valVar) + params[1]->getResult(var, valVar);
+		if (arg == "-")
+			return params[0]->getResult(var, valVar) - params[1]->getResult(var, valVar);
+		if (arg == "*")
+			return params[0]->getResult(var, valVar) * params[1]->getResult(var, valVar);
+		if (arg == "/")
+			return params[0]->getResult(var, valVar) / params[1]->getResult(var, valVar);
+	}
+
+	if (type == FUNC)
+	{
+		if (arg == "ln")
+			return log(params[0]->getResult(var, valVar));
+		if (arg == "pow")
+			return pow(params[0]->getResult(var, valVar), params[1]->getResult(var, valVar));
+		if (arg == "abs")
+			return abs(params[0]->getResult(var, valVar));
+		if (arg == "sin")
+			return sin(params[0]->getResult(var, valVar));
+		if (arg == "cos")
+			return cos(params[0]->getResult(var, valVar));
+	}
+
+	if (type == VAR)
+		for (size_t i(0); i < var.size(); i++)
+			if (var[i] == arg)
+				return valVar[i];
+
+	if (type == NUM)
+		return toNumber(arg);
+
+	return 0; //undef
 }

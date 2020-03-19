@@ -19,9 +19,7 @@ double toNumber(std::string str)
 
 	double num = 0;
 	int p;
-	for (auto i : str)
-		std::cout << i << " ";
-	std::cout << std::endl;
+
 	for (int i(0); i < str.length(); i++)
 		if (i != pointPos)
 		{
@@ -66,7 +64,7 @@ bool inBrackets(std::string str, int pos)
 
 	if (L == 0 && R == 0)
 		return false;
-	if (L - R == 0)
+	if (L + R == 0)
 		return true;
 
 	return false; //error: count brackets

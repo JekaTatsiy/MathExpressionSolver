@@ -27,8 +27,8 @@ public:
 		mathNode(std::string, Types, mathNode *, mathNode *);
 		~mathNode();
 
-		void clear();
 		void addParam(mathNode *);
+		double getResult(std::vector<std::string>, std::vector<double>);
 	};
 
 	mathNode *root;
@@ -37,12 +37,20 @@ public:
 	std::vector<std::string> operators{{"^"}, {"*/"}, {"+-"}, {"="}};
 
 	mathNode *parseNode(std::string);
-	void printNode(mathNode *node, int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes);
+	void printNode(mathNode *, int, std::vector<int> *, std::ostream &, bool);
 
 public:
 	mathTree();
 	mathTree(std::string);
 	mathTree(mathTree &);
 
-	void print(std::ostream &streamOut = std::cout, bool showTypeNodes = false);
+	void clear();
+	void print(std::ostream & = std::cout, bool = false);
+
+	void init();
+	void init(std::vector<double>);
+	void clearValues();
+
+	double calc();
+	double calc(std::vector<double>);
 };
