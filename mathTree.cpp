@@ -19,23 +19,23 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 				if (it != operators.begin()) //из-за некоторые проблемы с '^' в консоле
 					return new mathNode(
 						std::string(1, *(expression.begin() + i)),
-						OPER,
+						mathNode::Types::OPER,
 						parseNode(delBrackets(std::string(expression.begin(), expression.begin() + i))),
 						parseNode(delBrackets(std::string(expression.begin() + i + 1, expression.end()))));
 				else
 					return new mathNode(
 						"pow",
-						FUNC,
+						mathNode::Types::FUNC,
 						parseNode(delBrackets(std::string(expression.begin(), expression.begin() + i))),
 						parseNode(delBrackets(std::string(expression.begin() + i + 1, expression.end()))));
 
 	if (isNumber(expression))
-		return new mathNode(expression, NUM);
+		return new mathNode(expression, mathNode::Types::NUM);
 
 	if (isVariable(expression))
 	{
 		variables.push_back(expression);
-		return new mathNode(expression, VAR);
+		return new mathNode(expression, mathNode::Types::VAR);
 	}
 
 	if (isfunction(expression))
@@ -43,7 +43,7 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 		std::string::iterator startScan = std::find(expression.begin(), expression.end(), '(');
 		int openBrackets = 0;
 
-		mathNode *funcNode = new mathNode(std::string(expression.begin(), startScan), FUNC);
+		mathNode *funcNode = new mathNode(std::string(expression.begin(), startScan), mathNode::Types::FUNC);
 
 		for (auto i = startScan; i != expression.end(); i++)
 		{
@@ -62,14 +62,14 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 		return funcNode;
 	}
 
-	return new mathNode(expression, UNDEF); //undefine
+	return new mathNode(expression, mathNode::Types::UNDEF); //undefine
 }
 
 void mathTree::printNode(mathTree::mathNode *node, int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes)
 {
+	std::vector<int>::iterator del;
 	streamOut << node->arg;
-	std::cout << "    node->type: " << node->type << std::endl;
-	if (showTypeNodes || node->type == UNDEF)
+	if (showTypeNodes || node->type == mathNode::Types::UNDEF)
 		streamOut << "  -> " << node->type;
 	streamOut << std::endl;
 
@@ -94,12 +94,15 @@ void mathTree::printNode(mathTree::mathNode *node, int layer, std::vector<int> *
 		for (int j(0); j < 3; j++)
 			streamOut << char(196);
 
-		if (i == node->params.size() - 1)
-			calledNodes->erase(std::find(calledNodes->begin(), calledNodes->end(), layer));
+		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
+		if (i == node->params.size() - 1 && del != calledNodes->end())
+			calledNodes->erase(del);
 
 		printNode(node->params[i], layer + 1, calledNodes, streamOut, showTypeNodes);
 	}
-	calledNodes->erase(std::find(calledNodes->begin(), calledNodes->end(), layer));
+	del = std::find(calledNodes->begin(), calledNodes->end(), layer);
+	if (del != calledNodes->end())
+		calledNodes->erase(del);
 }
 
 void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
@@ -115,23 +118,23 @@ void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
 
 //========================  mathTree::mathNode  ============================
 
-mathTree::mathNode::mathNode(std::string act, TypesNode type)
+mathTree::mathNode::mathNode(std::string act, Types tp)
 {
 	arg = act;
-	type = type;
+	type = tp;
 }
 
-mathTree::mathNode::mathNode(std::string act, TypesNode type, mathNode *a)
+mathTree::mathNode::mathNode(std::string act, Types tp, mathNode *a)
 {
 	arg = act;
-	type = type;
+	type = tp;
 	params.push_back(a);
 }
 
-mathTree::mathNode::mathNode(std::string act, TypesNode type, mathNode *a, mathNode *b)
+mathTree::mathNode::mathNode(std::string act, Types tp, mathNode *a, mathNode *b)
 {
 	arg = act;
-	type = type;
+	type = tp;
 	params.push_back(a);
 	params.push_back(b);
 }

@@ -7,23 +7,24 @@
 
 class mathTree
 {
-	enum TypesNode
-	{
-		UNDEF,
-		OPER,
-		NUM,
-		VAR,
-		FUNC
-	};
+public:
 	struct mathNode
 	{
+		enum Types
+		{
+			UNDEF,
+			OPER,
+			NUM,
+			VAR,
+			FUNC
+		};
 		std::string arg;
-		TypesNode type;
+		Types type;
 		std::vector<mathNode *> params;
 
-		mathNode(std::string, TypesNode);
-		mathNode(std::string, TypesNode, mathNode *);
-		mathNode(std::string, TypesNode, mathNode *, mathNode *);
+		mathNode(std::string, Types);
+		mathNode(std::string, Types, mathNode *);
+		mathNode(std::string, Types, mathNode *, mathNode *);
 		~mathNode();
 
 		void clear();
