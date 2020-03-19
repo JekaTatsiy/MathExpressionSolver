@@ -18,7 +18,7 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 			if (std::search(it->begin(), it->end(), expression.begin() + i, expression.begin() + i + 1) != it->end() && !inBrackets(expression, i))
 				if (it != operators.begin()) //из-за некоторые проблемы с '^' в консоле
 					return new mathNode(
-						std::string(1, *(expression.begin() + 1)),
+						std::string(1, *(expression.begin() + i)),
 						OPER,
 						parseNode(delBrackets(std::string(expression.begin(), expression.begin() + i))),
 						parseNode(delBrackets(std::string(expression.begin() + i + 1, expression.end()))));
@@ -63,6 +63,50 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 	}
 
 	return new mathNode(expression, UNDEF); //undefine
+}
+
+void mathTree::printNode(mathTree::mathNode *node, int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes)
+{
+	streamOut << node->arg;
+	std::cout << "    node->type: " << node->type << std::endl;
+	if (showTypeNodes || node->type == UNDEF)
+		streamOut << "  -> " << node->type;
+	streamOut << std::endl;
+
+	calledNodes->push_back(layer);
+	bool f;
+
+	for (int i(0); i < node->params.size(); i++)
+	{
+		for (int j(0); j < layer; j++)
+		{
+			f = false;
+			for (size_t k(0); k < calledNodes->size(); k++)
+				if (calledNodes->at(k) == j)
+					f = true;
+			if (f)
+				streamOut << char(179) << "   ";
+			else
+				streamOut << char(32) << "   ";
+		}
+
+		streamOut << (i == (node->params.size() - 1) ? char(192) : char(195));
+		for (int j(0); j < 3; j++)
+			streamOut << char(196);
+
+		if (i == node->params.size() - 1)
+			calledNodes->erase(std::find(calledNodes->begin(), calledNodes->end(), layer));
+
+		printNode(node->params[i], layer + 1, calledNodes, streamOut, showTypeNodes);
+	}
+	calledNodes->erase(std::find(calledNodes->begin(), calledNodes->end(), layer));
+}
+
+void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
+{
+	std::vector<int> calledNodes;
+	printNode(root, 0, &calledNodes, streamOut, showTypeNodes);
+	std::cout << std::endl;
 }
 
 /*mathTree::mathTree(mathTree &newRoot)

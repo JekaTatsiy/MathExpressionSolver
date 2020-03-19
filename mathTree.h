@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 class mathTree
 {
@@ -35,9 +36,12 @@ class mathTree
 	std::vector<std::string> operators{{"^"}, {"*/"}, {"+-"}, {"="}};
 
 	mathNode *parseNode(std::string);
+	void printNode(mathNode *node, int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes);
 
 public:
 	mathTree();
 	mathTree(std::string);
 	mathTree(mathTree &);
+
+	void print(std::ostream &streamOut = std::cout, bool showTypeNodes = false);
 };

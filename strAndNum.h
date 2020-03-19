@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <cmath>
+#include <algorithm>
 
 bool belong(int beginValue, int endValue, int targetValue);
 
