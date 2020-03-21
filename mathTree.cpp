@@ -23,6 +23,11 @@ mathTree::~mathTree()
 	clear();
 }
 
+mathTree::mathNode *mathTree::getTree()
+{
+	return root;
+}
+
 mathTree::mathNode *mathTree::parseNode(std::string expression)
 {
 	for (auto it = operators.end() - 1; it >= operators.begin(); it--)

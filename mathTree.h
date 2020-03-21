@@ -41,29 +41,26 @@ class mathTree
 	void printNode(mathNode *, int, std::vector<int> *, std::ostream &, bool);
 
 public:
-//create and delete
+	//create and delete
 	mathTree();
 	mathTree(std::string);
 	mathTree(mathTree &);
 	~mathTree();
 
-//erase all memory
+	mathNode *getTree();
+
+	//erase all memory
 	void clear();
-//print tree 
+	//print tree
 	void print(std::ostream & = std::cout, bool = false);
 
-//init values for variables
+	//init values for variables
 	void init();
 	void init(std::vector<double>);
-//erase valuse for variables
+	//erase valuse for variables
 	void clearValues();
 
-//calc expression value
+	//calc expression value
 	double calc();
 	double calc(std::vector<double>);
-
-
-
-
-
 };
