@@ -31,6 +31,9 @@ public:
 
 		void addParam(mathNode *);
 		double getResult(std::vector<std::string>, std::vector<double>);
+
+		void print(std::ostream & = std::cout, bool = false);
+		void printNode(int, std::vector<int> *, std::ostream &, bool);
 	};
 
 	//create and delete
@@ -63,6 +66,4 @@ private:
 	std::vector<std::string> operators{{"^"}, {"*/"}, {"+-"}, {"="}};
 
 	mathNode *parseNode(std::string);
-	void printNode(mathNode *, int, std::vector<int> *, std::ostream &, bool);
-
 };

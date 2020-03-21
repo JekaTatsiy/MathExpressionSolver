@@ -82,58 +82,18 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 	return new mathNode(expression, mathNode::Types::UNDEF); //undefine
 }
 
-void mathTree::printNode(mathTree::mathNode *node, int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes)
-{
-	std::vector<int>::iterator del;
-	streamOut << node->arg;
-	if (showTypeNodes || node->type == mathNode::Types::UNDEF)
-		streamOut << "  -> " << node->type;
-	streamOut << std::endl;
-
-	calledNodes->push_back(layer);
-	bool f;
-
-	for (int i(0); i < node->params.size(); i++)
-	{
-		for (int j(0); j < layer; j++)
-		{
-			f = false;
-			for (size_t k(0); k < calledNodes->size(); k++)
-				if (calledNodes->at(k) == j)
-					f = true;
-			if (f)
-				streamOut << char(179) << "   ";
-			else
-				streamOut << char(32) << "   ";
-		}
-
-		streamOut << (i == (node->params.size() - 1) ? char(192) : char(195));
-		for (int j(0); j < 3; j++)
-			streamOut << char(196);
-
-		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
-		if (i == node->params.size() - 1 && del != calledNodes->end())
-			calledNodes->erase(del);
-
-		printNode(node->params[i], layer + 1, calledNodes, streamOut, showTypeNodes);
-	}
-	del = std::find(calledNodes->begin(), calledNodes->end(), layer);
-	if (del != calledNodes->end())
-		calledNodes->erase(del);
-}
-
-void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
-{
-	std::vector<int> calledNodes;
-	printNode(root, 0, &calledNodes, streamOut, showTypeNodes);
-	std::cout << std::endl;
-}
-
 void mathTree::clear()
 {
 	variables.clear();
 	valuesVariables.clear();
 	root->free();
+}
+
+void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
+{
+	std::vector<int> calledNodes;
+	root->printNode(0, &calledNodes, streamOut, showTypeNodes);
+	std::cout << std::endl;
 }
 
 void mathTree::init()
@@ -250,4 +210,51 @@ double mathTree::mathNode::getResult(std::vector<std::string> var, std::vector<d
 		return toNumber(arg);
 
 	return 0; //undef
+}
+
+void mathTree::mathNode::print(std::ostream &streamOut, bool showTypeNodes)
+{
+	std::vector<int> calledNodes;
+	this->printNode(0, &calledNodes, streamOut, showTypeNodes);
+	std::cout << std::endl;
+}
+
+void mathTree::mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes)
+{
+	std::vector<int>::iterator del;
+	streamOut << arg;
+	if (showTypeNodes || type == mathNode::Types::UNDEF)
+		streamOut << "  -> " << type;
+	streamOut << std::endl;
+
+	calledNodes->push_back(layer);
+	bool f;
+
+	for (int i(0); i < params.size(); i++)
+	{
+		for (int j(0); j < layer; j++)
+		{
+			f = false;
+			for (size_t k(0); k < calledNodes->size(); k++)
+				if (calledNodes->at(k) == j)
+					f = true;
+			if (f)
+				streamOut << char(179) << "   ";
+			else
+				streamOut << char(32) << "   ";
+		}
+
+		streamOut << (i == (params.size() - 1) ? char(192) : char(195));
+		for (int j(0); j < 3; j++)
+			streamOut << char(196);
+
+		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
+		if (i == params.size() - 1 && del != calledNodes->end())
+			calledNodes->erase(del);
+
+		params[i]->printNode(layer + 1, calledNodes, streamOut, showTypeNodes);
+	}
+	del = std::find(calledNodes->begin(), calledNodes->end(), layer);
+	if (del != calledNodes->end())
+		calledNodes->erase(del);
 }

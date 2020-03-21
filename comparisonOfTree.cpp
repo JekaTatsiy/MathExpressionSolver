@@ -1,35 +1,35 @@
 #include "comparisonOfTree.h"
 
-bool equalGraphs(mathNode *tree, mathNode *templateTree, vector<pair<string, mathNode *>> *replacement, bool inReplace)
+bool equalGraphs(mathTree::mathNode *tree, mathTree::mathNode *templateTree, std::vector<std::pair<std::string, mathTree::mathNode *>> *replacement, bool inReplace)
 {
-	if (tree->getAction() == templateTree->getAction() && (templateTree->getTypeValue() != VAR || inReplace))
+	if (tree->arg == templateTree->arg && (templateTree->type != mathTree::mathNode::Types::VAR || inReplace))
 	{
-		if (templateTree->getAction() == "+" || templateTree->getAction() == "*")
-			if (equalGraphs(tree->getParam(0), templateTree->getParam(0), replacement, inReplace) &&
-				equalGraphs(tree->getParam(1), templateTree->getParam(1), replacement, inReplace))
+		if (templateTree->arg == "+" || templateTree->arg == "*")
+			if (equalGraphs(tree->params[0], templateTree->params[0], replacement, inReplace) &&
+				equalGraphs(tree->params[1], templateTree->params[1], replacement, inReplace))
 				return true;
-			else if (equalGraphs(tree->getParam(1), templateTree->getParam(0), replacement, inReplace) && equalGraphs(tree->getParam(0), templateTree->getParam(1), replacement, inReplace))
+			else if (equalGraphs(tree->params[1], templateTree->params[0], replacement, inReplace) && equalGraphs(tree->params[0], templateTree->params[1], replacement, inReplace))
 				return true;
 			else
 				return false;
 
-		for (int i(0); i < templateTree->getParamsSize(); i++)
-			if (!equalGraphs(tree->getParam(i), templateTree->getParam(i), replacement, inReplace))
+		for (int i(0); i < templateTree->params.size(); i++)
+			if (!equalGraphs(tree->params[i], templateTree->params[i], replacement, inReplace))
 				return false;
 		return true;
 	}
-	else if (templateTree->getTypeValue() == VAR && !inReplace)
+	else if (templateTree->type == mathTree::mathNode::Types::VAR && !inReplace)
 	{
 		bool existReplacement = false;
 		for (int i(0); i < replacement->size(); i++)
-			if (templateTree->getAction() == replacement->at(i).first)
+			if (templateTree->arg == replacement->at(i).first)
 			{
 				existReplacement = true;
-				return equalGraphs(tree, replacement->at(i).second, replacement, true); 
+				return equalGraphs(tree, replacement->at(i).second, replacement, true);
 			}
 		if (!existReplacement)
 		{
-			replacement->push_back(pair<string, mathNode *>(templateTree->getAction(), tree));
+			replacement->push_back(std::pair<std::string, mathTree::mathNode *>(templateTree->arg, tree));
 			return true;
 		}
 	}
