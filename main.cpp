@@ -12,17 +12,14 @@ int main()
 	mathTree b("A-B");
 	typeReplacement *currentReplacement = new typeReplacement;
 
-	a.print();
-	a.getTree()->print();
-	/*
-	cout << equal(a.getTree(), b.getTree(), currentReplacement);
+	cout << equalGraphs(a.getTree(), b.getTree(), currentReplacement) << endl;
 	for (auto i : *currentReplacement)
 	{
 		cout << "variables: " << i.first << endl
 			 << "equal:" << endl;
-		i.second->printNode()
-
-	}*/
+		i.second->print();
+		cout << endl;
+	}
 
 	return 0;
 }

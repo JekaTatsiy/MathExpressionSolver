@@ -92,7 +92,7 @@ void mathTree::clear()
 void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
 {
 	std::vector<int> calledNodes;
-	root->printNode(0, &calledNodes, streamOut, showTypeNodes);
+	root->print(streamOut,showTypeNodes);
 	std::cout << std::endl;
 }
 

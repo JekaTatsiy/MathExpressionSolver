@@ -33,6 +33,8 @@ public:
 		double getResult(std::vector<std::string>, std::vector<double>);
 
 		void print(std::ostream & = std::cout, bool = false);
+
+	private:
 		void printNode(int, std::vector<int> *, std::ostream &, bool);
 	};
 
