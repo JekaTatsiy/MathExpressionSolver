@@ -7,6 +7,7 @@
 
 class mathTree
 {
+public:
 	struct mathNode
 	{
 		enum Types
@@ -32,15 +33,6 @@ class mathTree
 		double getResult(std::vector<std::string>, std::vector<double>);
 	};
 
-	mathNode *root;
-	std::vector<std::string> variables;
-	std::vector<double> valuesVariables;
-	std::vector<std::string> operators{{"^"}, {"*/"}, {"+-"}, {"="}};
-
-	mathNode *parseNode(std::string);
-	void printNode(mathNode *, int, std::vector<int> *, std::ostream &, bool);
-
-public:
 	//create and delete
 	mathTree();
 	mathTree(std::string);
@@ -63,4 +55,14 @@ public:
 	//calc expression value
 	double calc();
 	double calc(std::vector<double>);
+
+private:
+	mathNode *root;
+	std::vector<std::string> variables;
+	std::vector<double> valuesVariables;
+	std::vector<std::string> operators{{"^"}, {"*/"}, {"+-"}, {"="}};
+
+	mathNode *parseNode(std::string);
+	void printNode(mathNode *, int, std::vector<int> *, std::ostream &, bool);
+
 };
