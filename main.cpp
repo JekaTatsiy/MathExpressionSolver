@@ -6,8 +6,9 @@ using namespace std;
 
 int main()
 {
-	mathTree a("x^2-3*x+9");
-	a.print();
+	mathTree a("x^2-9");
+
+
 
 	return 0;
 }

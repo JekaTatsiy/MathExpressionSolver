@@ -59,8 +59,10 @@ bool inBrackets(std::string str, int pos)
 	int L = 0;
 	int R = 0;
 
-	std::count_if(str.begin(), str.begin() + pos, [&L](char c) { return (L += (c == '(')) || (L -= (c == ')')); });
-	std::count_if(str.begin() + pos + 1, str.end(), [&R](char c) { return (R += (c == '(')) || (R -= (c == ')')); });
+	std::count_if(str.begin(), str.begin() + pos,
+				  [&L](char c) { return (L += (c == '(')) || (L -= (c == ')')); });
+	std::count_if(str.begin() + pos + 1, str.end(),
+				  [&R](char c) { return (R += (c == '(')) || (R -= (c == ')')); });
 
 	if (L == 0 && R == 0)
 		return false;

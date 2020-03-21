@@ -11,6 +11,18 @@ mathTree::mathTree(std::string expression)
 	root = parseNode(delBrackets(expression));
 }
 
+mathTree::mathTree(mathTree &tree)
+{
+	variables = tree.variables;
+	valuesVariables = tree.valuesVariables;
+	root = new mathNode(*tree.root);
+}
+
+mathTree::~mathTree()
+{
+	clear();
+}
+
 mathTree::mathNode *mathTree::parseNode(std::string expression)
 {
 	for (auto it = operators.end() - 1; it >= operators.begin(); it--)
@@ -116,7 +128,7 @@ void mathTree::clear()
 {
 	variables.clear();
 	valuesVariables.clear();
-	delete root;
+	root->free();
 }
 
 void mathTree::init()
@@ -152,11 +164,15 @@ double mathTree::calc(std::vector<double> val)
 	return res;
 }
 
-/*mathTree::mathTree(mathTree &newRoot)
-{
-}*/
-
 //========================  mathTree::mathNode  ============================
+
+mathTree::mathNode::mathNode(mathTree::mathNode &node)
+{
+	arg = node.arg;
+	type = node.type;
+	for (auto i : node.params)
+		addParam(new mathNode(*i));
+}
 
 mathTree::mathNode::mathNode(std::string act, Types tp)
 {
@@ -179,10 +195,11 @@ mathTree::mathNode::mathNode(std::string act, Types tp, mathNode *a, mathNode *b
 	params.push_back(b);
 }
 
-mathTree::mathNode::~mathNode()
+void mathTree::mathNode::free()
 {
 	for (auto i : params)
-		delete i;
+		if (i)
+			i->free();
 	delete this;
 }
 

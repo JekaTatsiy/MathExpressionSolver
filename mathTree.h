@@ -7,7 +7,6 @@
 
 class mathTree
 {
-public:
 	struct mathNode
 	{
 		enum Types
@@ -18,14 +17,16 @@ public:
 			VAR,
 			FUNC
 		};
+
 		std::string arg;
 		Types type;
 		std::vector<mathNode *> params;
 
+		mathNode(mathNode &);
 		mathNode(std::string, Types);
 		mathNode(std::string, Types, mathNode *);
 		mathNode(std::string, Types, mathNode *, mathNode *);
-		~mathNode();
+		void free();
 
 		void addParam(mathNode *);
 		double getResult(std::vector<std::string>, std::vector<double>);
@@ -40,17 +41,29 @@ public:
 	void printNode(mathNode *, int, std::vector<int> *, std::ostream &, bool);
 
 public:
+//create and delete
 	mathTree();
 	mathTree(std::string);
 	mathTree(mathTree &);
+	~mathTree();
 
+//erase all memory
 	void clear();
+//print tree 
 	void print(std::ostream & = std::cout, bool = false);
 
+//init values for variables
 	void init();
 	void init(std::vector<double>);
+//erase valuse for variables
 	void clearValues();
 
+//calc expression value
 	double calc();
 	double calc(std::vector<double>);
+
+
+
+
+
 };
