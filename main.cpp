@@ -8,11 +8,14 @@ using namespace std;
 
 int main()
 {
-	mathTree a("x^2-9");
+	mathTree a("1+x^2-9");
 	mathTree b("A-B");
+
+
 	typeReplacement *currentReplacement = new typeReplacement;
 
-	cout << equalGraphs(a.getTree(), b.getTree(), currentReplacement) << endl;
+	//cout << equalGraphs(a.getTree(), b.getTree(), currentReplacement) << endl;
+	cout << findSubgraph(a.getTree(), b.getTree(), currentReplacement) << endl;
 	for (auto i : *currentReplacement)
 	{
 		cout << "variables: " << i.first << endl

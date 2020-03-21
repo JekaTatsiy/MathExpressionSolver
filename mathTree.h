@@ -65,7 +65,7 @@ private:
 	mathNode *root;
 	std::vector<std::string> variables;
 	std::vector<double> valuesVariables;
-	std::vector<std::string> operators{{"^"}, {"*/"}, {"+-"}, {"="}};
+	std::vector<char> operators{'^', '/', '*', '-', '+', '='};
 
 	mathNode *parseNode(std::string);
 };

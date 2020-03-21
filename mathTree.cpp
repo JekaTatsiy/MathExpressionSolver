@@ -32,7 +32,7 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 {
 	for (auto it = operators.end() - 1; it >= operators.begin(); it--)
 		for (size_t i(0); i < expression.size(); i++)
-			if (std::search(it->begin(), it->end(), expression.begin() + i, expression.begin() + i + 1) != it->end() && !inBrackets(expression, i))
+			if (expression[i] == *it && !inBrackets(expression, i))
 				if (it != operators.begin()) //из-за некоторые проблемы с '^' в консоле
 					return new mathNode(
 						std::string(1, *(expression.begin() + i)),
@@ -92,7 +92,7 @@ void mathTree::clear()
 void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
 {
 	std::vector<int> calledNodes;
-	root->print(streamOut,showTypeNodes);
+	root->print(streamOut, showTypeNodes);
 	std::cout << std::endl;
 }
 

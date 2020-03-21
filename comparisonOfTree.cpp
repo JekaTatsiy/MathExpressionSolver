@@ -5,10 +5,10 @@ bool equalGraphs(mathTree::mathNode *tree, mathTree::mathNode *templateTree, typ
 	if (tree->arg == templateTree->arg && (templateTree->type != mathTree::mathNode::Types::VAR || inReplace))
 	{
 		if (templateTree->arg == "+" || templateTree->arg == "*")
-			if (equalGraphs(tree->params[0], templateTree->params[0], replace, inReplace) &&
-				equalGraphs(tree->params[1], templateTree->params[1], replace, inReplace))
-				return true;
-			else if (equalGraphs(tree->params[1], templateTree->params[0], replace, inReplace) && equalGraphs(tree->params[0], templateTree->params[1], replace, inReplace))
+			if (equalGraphs(tree->params[0], templateTree->params[0], replace, inReplace) ||
+				equalGraphs(tree->params[1], templateTree->params[1], replace, inReplace) ||
+				equalGraphs(tree->params[1], templateTree->params[0], replace, inReplace) ||
+				equalGraphs(tree->params[0], templateTree->params[1], replace, inReplace))
 				return true;
 			else
 				return false;
@@ -37,5 +37,21 @@ bool equalGraphs(mathTree::mathNode *tree, mathTree::mathNode *templateTree, typ
 	return false;
 }
 
+mathTree::mathNode *findSubgraph(mathTree::mathNode *baseGraph, mathTree::mathNode *templateGraph, typeReplacement *replace)
+{
+	if (equalGraphs(baseGraph, templateGraph, replace))
+		return baseGraph;
+	else
+		for (int i(0); i < baseGraph->params.size(); i++)
+		{
+			mathTree::mathNode *retRecursion = findSubgraph(baseGraph->params[i], templateGraph, replace);
+			if (retRecursion)
+				return retRecursion;
+		}
+	return nullptr;
+}
 
+void replace(mathTree::mathNode *forReplace, mathTree::mathNode *templateTree, typeReplacement *replace)
+{
 
+}
