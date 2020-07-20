@@ -5,11 +5,14 @@
 #include <algorithm>
 #include <iostream>
 
+//contain math expression in the form a tree
 class mathTree
 {
 public:
+	//contain one math expression
 	struct mathNode
 	{
+		//describes what the stuct type action with operands
 		enum Types
 		{
 			UNDEF,
@@ -19,9 +22,9 @@ public:
 			FUNC
 		};
 
-		std::string arg;
-		Types type;
-		std::vector<mathNode *> params;
+		std::string arg;//type action with operands
+		Types type;//action with operands
+		std::vector<mathNode *> params;//operands
 
 		mathNode(mathNode &);
 		mathNode(std::string, Types);
@@ -29,9 +32,11 @@ public:
 		mathNode(std::string, Types, mathNode *, mathNode *);
 		void free();
 
+		//add new param(for functions)
 		void addParam(mathNode *);
+		//calc result
 		double getResult(std::vector<std::string>, std::vector<double>);
-
+		//print yourself
 		void print(std::ostream & = std::cout, bool = false);
 
 	private:
@@ -41,9 +46,10 @@ public:
 	//create and delete
 	mathTree();
 	mathTree(std::string);
-	mathTree(mathTree &);
+	mathTree(mathTree &);//не правильно
 	~mathTree();
 
+	//returned root node
 	mathNode *getTree();
 
 	//erase all memory
@@ -54,7 +60,7 @@ public:
 	//init values for variables
 	void init();
 	void init(std::vector<double>);
-	//erase valuse for variables
+	//erase values for variables
 	void clearValues();
 
 	//calc expression value
@@ -65,7 +71,7 @@ private:
 	mathNode *root;
 	std::vector<std::string> variables;
 	std::vector<double> valuesVariables;
-	std::vector<char> operators{'^', '/', '*', '-', '+', '='};
+	std::vector<char> priorityOperators{'^', '/', '*', '-', '+', '='};
 
 	mathNode *parseNode(std::string);
 };

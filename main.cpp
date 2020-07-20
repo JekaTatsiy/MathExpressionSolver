@@ -8,10 +8,16 @@ using namespace std;
 
 int main()
 {
+
+
 	mathTree a("1+x^2-9");
-	mathTree b("A-B");
+	mathTree b("(r^2)*(cos(2*x)+sin(2*x)*i)");
+	//mathTree b("A-B");
 
+	a.print();
+	b.print();
 
+	/*
 	typeReplacement *currentReplacement = new typeReplacement;
 
 	//cout << equalGraphs(a.getTree(), b.getTree(), currentReplacement) << endl;
@@ -23,6 +29,6 @@ int main()
 		i.second->print();
 		cout << endl;
 	}
-
+*/
 	return 0;
 }

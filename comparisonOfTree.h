@@ -8,4 +8,4 @@ bool equalGraphs(mathTree::mathNode *, mathTree::mathNode *, typeReplacement *, 
 
 mathTree::mathNode *findSubgraph(mathTree::mathNode *, mathTree::mathNode *, typeReplacement *);
 
-void replace(mathTree::mathNode *, mathTree::mathNode *, typeReplacement *)
+void replace(mathTree::mathNode *, mathTree::mathNode *, typeReplacement *);

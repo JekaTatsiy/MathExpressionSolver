@@ -1,6 +1,5 @@
+#include <assert.h>
 #include "strAndNum.h"
-
-#include <iostream>
 
 bool belong(int beginValue, int endValue, int targetValue)
 {
@@ -54,22 +53,23 @@ char numToChar(int num)
 		return '\n';
 }
 
+#include <iostream>
+using namespace std;
 bool inBrackets(std::string str, int pos)
 {
 	int L = 0;
 	int R = 0;
 
 	std::count_if(str.begin(), str.begin() + pos,
-				  [&L](char c) { return (L += (c == '(')) || (L -= (c == ')')); });
+				  [&L](char c) {  L += (c == '('); L -= (c == ')'); return true; });
 	std::count_if(str.begin() + pos + 1, str.end(),
-				  [&R](char c) { return (R += (c == '(')) || (R -= (c == ')')); });
-
+				  [&R](char c) {  R += (c == '('); R -= (c == ')'); return true; });
 	if (L == 0 && R == 0)
 		return false;
 	if (L + R == 0)
 		return true;
 
-	return false; //error: count brackets
+	return false;
 }
 std::string delBrackets(std::string str)
 {
@@ -89,7 +89,10 @@ std::string delBrackets(std::string str)
 	if (brackets == 0)
 		return delBrackets(std::string(str.begin() + 1, str.end() - 1));
 	else
+	{
+		assert(!"Неверное количество скобок");
 		return "";
+	}
 }
 
 bool isNumber(std::string str)

@@ -1,3 +1,4 @@
+
 #include "mathTree.h"
 #include "strAndNum.h"
 
@@ -30,10 +31,10 @@ mathTree::mathNode *mathTree::getTree()
 
 mathTree::mathNode *mathTree::parseNode(std::string expression)
 {
-	for (auto it = operators.end() - 1; it >= operators.begin(); it--)
+	for (auto it = priorityOperators.end() - 1; it >= priorityOperators.begin(); it--)
 		for (size_t i(0); i < expression.size(); i++)
 			if (expression[i] == *it && !inBrackets(expression, i))
-				if (it != operators.begin()) //из-за некоторые проблемы с '^' в консоле
+				if (it != priorityOperators.begin())
 					return new mathNode(
 						std::string(1, *(expression.begin() + i)),
 						mathNode::Types::OPER,
