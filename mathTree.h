@@ -22,11 +22,11 @@ public:
 			FUNC
 		};
 
-		std::string arg;//type action with operands
-		Types type;//action with operands
-		std::vector<mathNode *> params;//operands
+		std::string arg;				//type action with operands
+		Types type;						//action with operands
+		std::vector<mathNode *> params; //operands
 
-		mathNode(mathNode &);
+		mathNode(const mathNode &);
 		mathNode(std::string, Types);
 		mathNode(std::string, Types, mathNode *);
 		mathNode(std::string, Types, mathNode *, mathNode *);
@@ -46,8 +46,9 @@ public:
 	//create and delete
 	mathTree();
 	mathTree(std::string);
-	mathTree(mathTree &);//не правильно
+	mathTree(const mathTree &); //не правильно
 	~mathTree();
+	mathTree &operator=(const mathTree &);
 
 	//returned root node
 	mathNode *getTree();
@@ -66,6 +67,15 @@ public:
 	//calc expression value
 	double calc();
 	double calc(std::vector<double>);
+
+	mathTree replaceRoot(std::string, const mathTree &, const mathTree &);
+	mathTree operator==(const mathTree &);
+	mathTree operator+(const mathTree &);
+	mathTree operator-(const mathTree &);
+	mathTree operator*(const mathTree &);
+	mathTree operator/(const mathTree &);
+
+	friend mathTree copy(const mathTree &ref);
 
 private:
 	mathNode *root;

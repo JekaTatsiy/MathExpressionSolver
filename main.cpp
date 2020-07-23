@@ -8,15 +8,18 @@ using namespace std;
 
 int main()
 {
-
+	//cout << INFINITY << endl;
 
 	mathTree a("1+x^2-9");
-	mathTree b("(r^2)*(cos(2*x)+sin(2*x)*i)");
-	//mathTree b("A-B");
+	//mathTree b("(r^2)*(cos(2*x)+sin(2*x)*i)");
+	mathTree b;
 
+	b=a;
 	a.print();
 	b.print();
-
+	a.clear();
+	a.print();
+	b.print();
 	/*
 	typeReplacement *currentReplacement = new typeReplacement;
 

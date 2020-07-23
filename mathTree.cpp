@@ -12,7 +12,7 @@ mathTree::mathTree(std::string expression)
 	root = parseNode(delBrackets(expression));
 }
 
-mathTree::mathTree(mathTree &tree)
+mathTree::mathTree(const mathTree &tree)
 {
 	variables = tree.variables;
 	valuesVariables = tree.valuesVariables;
@@ -22,6 +22,14 @@ mathTree::mathTree(mathTree &tree)
 mathTree::~mathTree()
 {
 	clear();
+}
+
+mathTree &mathTree::operator=(const mathTree &tree)
+{
+	variables = tree.variables;
+	valuesVariables = tree.valuesVariables;
+	root = new mathNode(*tree.root);
+	return *this;
 }
 
 mathTree::mathNode *mathTree::getTree()
@@ -56,7 +64,7 @@ mathTree::mathNode *mathTree::parseNode(std::string expression)
 		return new mathNode(expression, mathNode::Types::VAR);
 	}
 
-	if (isfunction(expression))
+	if (isFunction(expression))
 	{
 		std::string::iterator startScan = std::find(expression.begin(), expression.end(), '(');
 		int openBrackets = 0;
@@ -88,6 +96,7 @@ void mathTree::clear()
 	variables.clear();
 	valuesVariables.clear();
 	root->free();
+	
 }
 
 void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
@@ -130,9 +139,56 @@ double mathTree::calc(std::vector<double> val)
 	return res;
 }
 
+//use adres
+mathTree mathTree::replaceRoot(std::string act, const mathTree &l, const mathTree &r)
+{
+	mathNode::Types tp;
+	if (act == "=" || act == "+" || act == "-" || act == "*" || act == "/")
+		tp = mathNode::Types::OPER;
+	if (isFunction(act))
+		tp = mathNode::Types::FUNC;
+	if (isNumber(act))
+		tp = mathNode::Types::NUM;
+	if (isVariable(act))
+		tp = mathNode::Types::VAR;
+
+	root = new mathNode(act, tp, l.root, r.root);
+	return *this;
+}
+
+mathTree mathTree::operator==(const mathTree &r)
+{
+	return replaceRoot("=", *this, copy(r));
+}
+
+mathTree mathTree::operator+(const mathTree &r)
+{
+	return replaceRoot("+", *this, copy(r));
+}
+
+mathTree mathTree::operator-(const mathTree &r)
+{
+	return replaceRoot("-", *this, copy(r));
+}
+
+mathTree mathTree::operator*(const mathTree &r)
+{
+	return replaceRoot("*", *this, copy(r));
+}
+
+mathTree mathTree::operator/(const mathTree &r)
+{
+	return replaceRoot("/", *this, copy(r));
+}
+
+mathTree copy(const mathTree &ref)
+{
+	return mathTree(ref);
+}
+
 //========================  mathTree::mathNode  ============================
 
-mathTree::mathNode::mathNode(mathTree::mathNode &node)
+mathTree::mathNode::mathNode(const mathTree::mathNode &node)
 {
 	arg = node.arg;
 	type = node.type;

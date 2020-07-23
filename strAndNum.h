@@ -14,4 +14,4 @@ std::string delBrackets(std::string str);
 
 bool isNumber(std::string str);
 bool isVariable(std::string str);
-bool isfunction(std::string str);
+bool isFunction(std::string str);
