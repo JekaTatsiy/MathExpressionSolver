@@ -1,6 +1,6 @@
 
-#include "mathTree.h"
-#include "strAndNum.h"
+#include "../mathTree.h"
+#include "../strAndNum.h"
 
 mathTree::mathTree()
 {
@@ -240,14 +240,14 @@ void mathTree::mathNode::printNode(int layer, std::vector<int> *calledNodes, std
 				if (calledNodes->at(k) == j)
 					f = true;
 			if (f)
-				streamOut << char(179) << "   ";
+				streamOut << "│" << "   ";
 			else
-				streamOut << char(32) << "   ";
+				streamOut << " " << "   ";
 		}
 
-		streamOut << (i == (params.size() - 1) ? char(192) : char(195));
+		streamOut << (i == (params.size() - 1) ? "└" : "├" );
 		for (int j(0); j < 3; j++)
-			streamOut << char(196);
+			streamOut << "─";
 
 		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
 		if (i == params.size() - 1 && del != calledNodes->end())

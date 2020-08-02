@@ -9,13 +9,13 @@ using namespace std;
 int main()
 {
 
-
 	mathTree a("1+x^2-9");
 	mathTree b("(r^2)*(cos(2*x)+sin(2*x)*i)");
-	//mathTree b("A-B");
+	mathTree c("A-B");
 
 	a.print();
 	b.print();
+	c.print();
 
 	/*
 	typeReplacement *currentReplacement = new typeReplacement;

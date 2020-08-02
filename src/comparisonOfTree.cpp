@@ -1,4 +1,4 @@
-#include "comparisonOfTree.h"
+#include "../comparisonOfTree.h"
 
 bool equalGraphs(mathTree::mathNode *tree, mathTree::mathNode *templateTree, typeReplacement *replace, bool inReplace)
 {
