@@ -1,8 +1,9 @@
-#ifndef MATH_TREE_H
-#define MATH_TREE_H
+//#ifndef MATH_TREE_H
+//#define MATH_TREE_H
 
 #include <vector>
-
+#include <string>
+#include "mathNode.h"
 
 //contain math expression in the form a tree
 class mathTree
@@ -15,6 +16,8 @@ public:
 	~mathTree();
 	
 	void set(std::string);
+
+	mathTree &operator=(const mathTree &);
 
 	//returned root node
 	mathNode *getTree();
@@ -34,6 +37,15 @@ public:
 	double calc();
 	double calc(std::vector<double>);
 
+	mathTree replaceRoot(std::string, const mathTree &, const mathTree &);
+	mathTree operator==(const mathTree &);
+	mathTree operator+(const mathTree &);
+	mathTree operator-(const mathTree &);
+	mathTree operator*(const mathTree &);
+	mathTree operator/(const mathTree &);
+
+	friend mathTree copy(const mathTree &ref);
+
 private:
 	mathNode *root;
 	std::vector<std::string> variables;
@@ -43,4 +55,4 @@ private:
 	mathNode *parseNode(std::string);
 };
 
-#endif
+//#endif

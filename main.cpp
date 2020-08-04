@@ -1,21 +1,20 @@
 #include <iostream>
 #include <string>
-#include "mathExprSlvr.h"
+#include "mathTree.h"
 
 using namespace std;
 
 int main(int argc,char**argv)
 {
-	
-	mathTree a("1+x^2-9");
+
+	mathTree a("a+b*(r^2)/3");
+	mathTree b("A+B");
 	a.print();
-	mathTree b("(r^2)*(cos(2*x)+sin(2*x)*i)");
 	b.print();
-	mathTree c("A-B");
-	c.print();
+//	b=a;
+//	b.print();
 
-
-/*
+	/*
 	typeReplacement *currentReplacement = new typeReplacement;
 
 	//cout << equalGraphs(a.getTree(), b.getTree(), currentReplacement) << endl;

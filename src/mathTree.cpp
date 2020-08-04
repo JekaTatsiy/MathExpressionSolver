@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <iostream>
 
-#include "../mathNode.h"
 #include "../mathTree.h"
+#include "../mathNode.h"
 #include "../strAndNum.h"
 
 mathTree::mathTree()
@@ -69,7 +69,7 @@ mathNode *mathTree::parseNode(std::string expression)
 		return new mathNode(expression, mathNode::Types::VAR);
 	}
 
-	if (isfunction(expression))
+	if (isFunction(expression))
 	{
 		std::string::iterator startScan = std::find(expression.begin(), expression.end(), '(');
 		int openBrackets = 0;

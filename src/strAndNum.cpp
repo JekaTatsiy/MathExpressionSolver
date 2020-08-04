@@ -134,7 +134,7 @@ bool isVariable(std::string str)
 	}
 	return true;
 }
-bool isfunction(std::string str)
+bool isFunction(std::string str)
 {
 	if (std::find(str.begin(), str.end(), '(') == str.end() || std::find(str.begin(), str.end(), ')') == str.end())
 		return false;

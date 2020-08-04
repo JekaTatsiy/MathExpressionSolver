@@ -27,6 +27,7 @@ obj/%.o: %.cpp
 	g++ -c $(FLG_O) $(FLG_D) -o $@ $<
 
 clear:
-	rm  $(OBJ_DIR)/*
+	rm $(OBJ_DIR)/*
+	rm $(EXEC)
 
 include $(DEP)
