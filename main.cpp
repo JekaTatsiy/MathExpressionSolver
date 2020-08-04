@@ -6,18 +6,18 @@
 
 using namespace std;
 
-int main()
+int main(int argc,char**argv)
 {
-
+	
 	mathTree a("1+x^2-9");
-	mathTree b("(r^2)*(cos(2*x)+sin(2*x)*i)");
-	mathTree c("A-B");
-
 	a.print();
+	mathTree b("(r^2)*(cos(2*x)+sin(2*x)*i)");
 	b.print();
+	mathTree c("A-B");
 	c.print();
 
-	/*
+
+/*
 	typeReplacement *currentReplacement = new typeReplacement;
 
 	//cout << equalGraphs(a.getTree(), b.getTree(), currentReplacement) << endl;

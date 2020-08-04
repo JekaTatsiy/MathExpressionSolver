@@ -46,8 +46,10 @@ public:
 	//create and delete
 	mathTree();
 	mathTree(std::string);
-	mathTree(mathTree &);//не правильно
+	mathTree(mathTree &);
 	~mathTree();
+	
+	void set(std::string);
 
 	//returned root node
 	mathNode *getTree();
