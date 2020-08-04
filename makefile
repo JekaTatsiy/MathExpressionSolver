@@ -4,7 +4,7 @@ OBJ_DIR = obj
 SRC = $(wildcard $(SRC_DIR)/*.cpp)
 OBJ = $(OBJ_DIR)/main.o $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o) 
 DEP = $($(OBJ):%.o=%.d)
-FLG_O = 
+FLG_O = -std=c++17
 FLG_D = -MMD
 
 vpath %.cpp $(SRC_DIR)

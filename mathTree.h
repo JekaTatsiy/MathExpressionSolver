@@ -12,7 +12,7 @@ public:
 	//create and delete
 	mathTree();
 	mathTree(std::string);
-	mathTree(mathTree &);
+	mathTree(const mathTree &);
 	~mathTree();
 	
 	void set(std::string);
