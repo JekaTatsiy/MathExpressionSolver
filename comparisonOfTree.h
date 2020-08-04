@@ -1,11 +1,18 @@
-#pragma once
+#ifndef COMPARISON_OF_TREE_H
+#define COMPARISON_OF_TREE_H
 
+#include <vector>
+#include <string>
+#include <iostream>
+#include "mathNode.h"
 #include "mathTree.h"
 
-typedef std::vector<std::pair<std::string, mathTree::mathNode *>> typeReplacement;
+typedef std::vector<std::pair<std::string, mathNode *>> typeReplacement;
 
-bool equalGraphs(mathTree::mathNode *, mathTree::mathNode *, typeReplacement *, bool = false);
+bool equalGraphs(mathNode *, mathNode *, typeReplacement *, bool = false);
 
-mathTree::mathNode *findSubgraph(mathTree::mathNode *, mathTree::mathNode *, typeReplacement *);
+mathNode *findSubgraph(mathNode *, mathNode *, typeReplacement *);
 
-void replace(mathTree::mathNode *, mathTree::mathNode *, typeReplacement *);
+void replace(mathNode *, mathNode *, typeReplacement *);
+
+#endif

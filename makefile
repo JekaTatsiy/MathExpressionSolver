@@ -10,7 +10,7 @@ FLG_D = -MMD
 vpath %.cpp $(SRC_DIR)
 vpath %.o $(OBJ_DIR)
 
-.PHONY: default ciear
+.PHONY: default clear
 
 default: $(EXEC)
 

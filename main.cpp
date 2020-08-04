@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
-#include "mathTree.h"
-#include "strAndNum.h"
-#include "comparisonOfTree.h"
+#include "mathExprSlvr.h"
 
 using namespace std;
 
