@@ -11,8 +11,8 @@ int main(int argc,char**argv)
 	mathTree b("A+B");
 	a.print();
 	b.print();
-//	b=a;
-//	b.print();
+	b=a;
+	b.print();
 
 	/*
 	typeReplacement *currentReplacement = new typeReplacement;

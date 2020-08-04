@@ -42,6 +42,58 @@ mathNode *mathTree::getTree()
 	return root;
 }
 
+void mathTree::clear()
+{
+	variables.clear();
+	valuesVariables.clear();
+	root->free();
+}
+
+void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
+{
+	if(root!=nullptr)
+	{
+		std::vector<int> calledNodes;
+		root->print(streamOut, showTypeNodes);
+		streamOut << std::endl;
+	}else
+		streamOut << "no expression"<<std::endl;
+
+}
+void mathTree::init()
+{
+	double inputValues;
+	std::cout << "input values:" << std::endl;
+	for (size_t i(0); i < variables.size(); i++)
+	{
+		std::cout << variables[i] << ": ";
+		std::cin >> inputValues;
+		valuesVariables.push_back(inputValues);
+	}
+}
+void mathTree::init(std::vector<double> val)
+{
+	if (val.size() == variables.size())
+		valuesVariables = val;
+}
+void mathTree::clearValues()
+{
+	valuesVariables.clear();
+}
+
+double mathTree::calc()
+{
+	return root->getResult(variables, valuesVariables);
+}
+double mathTree::calc(std::vector<double> val)
+{
+	init(val);
+	double res = calc();
+	clearValues();
+	return res;
+}
+
+
 mathNode *mathTree::parseNode(std::string expression)
 {
 	for (auto it = priorityOperators.end() - 1; it >= priorityOperators.begin(); it--)
@@ -94,55 +146,4 @@ mathNode *mathTree::parseNode(std::string expression)
 	}
 
 	return new mathNode(expression, mathNode::Types::UNDEF); //undefine
-}
-
-void mathTree::clear()
-{
-	variables.clear();
-	valuesVariables.clear();
-	root->free();
-}
-
-void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
-{
-	if(root!=nullptr)
-	{
-		std::vector<int> calledNodes;
-		root->print(streamOut, showTypeNodes);
-		streamOut << std::endl;
-	}else
-		streamOut << "no expression"<<std::endl;
-
-}
-void mathTree::init()
-{
-	double inputValues;
-	std::cout << "input values:" << std::endl;
-	for (size_t i(0); i < variables.size(); i++)
-	{
-		std::cout << variables[i] << ": ";
-		std::cin >> inputValues;
-		valuesVariables.push_back(inputValues);
-	}
-}
-void mathTree::init(std::vector<double> val)
-{
-	if (val.size() == variables.size())
-		valuesVariables = val;
-}
-void mathTree::clearValues()
-{
-	valuesVariables.clear();
-}
-
-double mathTree::calc()
-{
-	return root->getResult(variables, valuesVariables);
-}
-double mathTree::calc(std::vector<double> val)
-{
-	init(val);
-	double res = calc();
-	clearValues();
-	return res;
 }
