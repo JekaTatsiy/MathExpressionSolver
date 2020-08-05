@@ -9,10 +9,11 @@
 
 typedef std::vector<std::pair<std::string, mathNode *>> typeReplacement;
 
-bool equalGraphs(mathNode *, mathNode *, typeReplacement *, bool = false);
+mathNode* existEqualSubgraph(mathNode *, mathNode *, bool = false);
 
 mathNode *findSubgraph(mathNode *, mathNode *, typeReplacement *);
 
 void replace(mathNode *, mathNode *, typeReplacement *);
 
 #endif
+

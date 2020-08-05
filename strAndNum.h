@@ -1,4 +1,6 @@
-#pragma once
+#ifndef STR_AND_NUM_H
+#define STR_ADN_NUM_H
+
 #include <string>
 #include <cmath>
 #include <algorithm>
@@ -15,3 +17,5 @@ std::string delBrackets(std::string str);
 bool isNumber(std::string str);
 bool isVariable(std::string str);
 bool isFunction(std::string str);
+
+#endif

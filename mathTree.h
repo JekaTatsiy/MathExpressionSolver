@@ -1,5 +1,5 @@
-//#ifndef MATH_TREE_H
-//#define MATH_TREE_H
+#ifndef MATH_TREE_H
+#define MATH_TREE_H
 
 #include <vector>
 #include <string>
@@ -55,4 +55,4 @@ private:
 	mathNode *parseNode(std::string);
 };
 
-//#endif
+#endif
