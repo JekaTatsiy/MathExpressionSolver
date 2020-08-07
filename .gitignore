@@ -1,4 +1,8 @@
 obj/
+tests/*.d
+
+.*.*
+.*~
+
 prog
-.*
 *.exe
