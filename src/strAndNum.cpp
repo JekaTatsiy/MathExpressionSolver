@@ -45,6 +45,7 @@ std::string toString(double num, int precision)
 		res.insert(res.begin(), '-');
 	return res;
 }
+
 char numToChar(int num)
 {
 	if (belong(48, 57, num))
@@ -53,8 +54,6 @@ char numToChar(int num)
 		return '\n';
 }
 
-#include <iostream>
-using namespace std;
 bool inBrackets(std::string str, int pos)
 {
 	int L = 0;
@@ -71,6 +70,7 @@ bool inBrackets(std::string str, int pos)
 
 	return false;
 }
+
 std::string delBrackets(std::string str)
 {
 	if (*str.begin() != '(' || *str.rbegin() != ')')
@@ -90,7 +90,7 @@ std::string delBrackets(std::string str)
 		return delBrackets(std::string(str.begin() + 1, str.end() - 1));
 	else
 	{
-		assert(!"¥¢¥à­®¥ ª®«¨ç¥áâ¢® áª®¡®ª");
+		assert(!"ï¿½ï¿½ï¿½ï¿½à­®ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¢® áª®ï¿½ï¿½ï¿½");
 		return "";
 	}
 }
@@ -112,17 +112,39 @@ bool isNumber(std::string str)
 
 	return true;
 }
+
 bool isVariable(std::string str)
+{
+	return isSmalVariable(str)||isBigVariable(str);
+}
+
+bool isSmalVariable(std::string str)
 {
 	bool endChar = false;
 	for (char i : str)
 	{
 		if (belong(int('a'), int('z'), i) && !endChar)
 			;
-		else if (belong(int('A'), int('Z'), i) && !endChar)
-			;
 		else if (belong(int('a'), int('z'), i) && endChar)
 			return false;
+		else if (belong(int('0'), int('1'), i) && !endChar)
+			endChar = true;
+		else if (belong(int('0'), int('1'), i) && endChar)
+			;
+		else
+			return false;
+	}
+	return true;
+}
+
+
+bool isBigVariable(std::string str)
+{
+	bool endChar = false;
+	for (char i : str)
+	{
+		if (belong(int('A'), int('Z'), i) && !endChar)
+			;
 		else if (belong(int('A'), int('Z'), i) && endChar)
 			return false;
 		else if (belong(int('0'), int('1'), i) && !endChar)
@@ -134,6 +156,7 @@ bool isVariable(std::string str)
 	}
 	return true;
 }
+
 bool isFunction(std::string str)
 {
 	if (std::find(str.begin(), str.end(), '(') == str.end() || std::find(str.begin(), str.end(), ')') == str.end())

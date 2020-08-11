@@ -1,8 +1,13 @@
+#compiller files
 obj/
-tests/*.d
+tests/*
+!tests/*.cpp
 
+#tmp files
 .*.*
 .*~
+.vscode/
 
+#exec files
 prog
 *.exe

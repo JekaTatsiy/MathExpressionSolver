@@ -6,6 +6,7 @@
 #include <iostream>
 #include "mathNode.h"
 #include "mathTree.h"
+#include "strAndNum.h"
 
 typedef std::vector<std::pair<std::string, mathNode *>> typeReplacement;
 

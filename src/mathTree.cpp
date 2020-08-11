@@ -26,23 +26,23 @@ mathTree::mathTree(const mathTree &tree)
 
 mathTree::~mathTree()
 {
-	if(root!=nullptr)
+	if(root)
 		clear();
 }
 
 mathTree &mathTree::operator=(const mathTree &tree)
 {
-	variables = tree.variables;
-	valuesVariables = tree.valuesVariables;
+	clear();
 	root = new mathNode(*tree.root);
 	return *this;
 }
 
 void mathTree::set(std::string expression)
 {
-	if(root!=nullptr)
+	if(root)
 		delete root;
-	root = parseNode(delBrackets(expression));
+	if(expression.size()!=0)
+		root = parseNode(delBrackets(expression));
 }
 
 mathNode *mathTree::getTree()
@@ -54,12 +54,14 @@ void mathTree::clear()
 {
 	variables.clear();
 	valuesVariables.clear();
-	root->free();
+	if(root)
+		root->free();
+	root=nullptr;
 }
 
 void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
 {
-	if(root!=nullptr)
+	if(root)
 	{
 		std::vector<int> calledNodes;
 		root->print(streamOut, showTypeNodes);

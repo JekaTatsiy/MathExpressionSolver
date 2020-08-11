@@ -4,10 +4,17 @@ mathNode* existEqualSubgraph(mathNode *tree, mathNode *templ, bool wasCollision)
 {
 	if (templ->type==mathNode::Types::VAR)
 	{
-		return tree;
+		if(isSmalVariable(templ->arg))
+			if(tree->arg == templ->arg)
+				return tree;
+			else
+				return nullptr;
+		else
+			return tree;
 	}
-	else if(tree->arg == templ->arg && tree->params.size()==tree->params.size())
+	else if(tree->arg == templ->arg && tree->params.size()==templ->params.size())
 	{
+		//проверить, возможно ли найти подходящие шаблоны, если пройти вглубь (для комутативных операторов)
 		for(int i=0;i<tree->params.size();i++)
 			if(!existEqualSubgraph(tree->params[i],templ->params[i],true))
 				return nullptr;
@@ -22,7 +29,7 @@ mathNode* existEqualSubgraph(mathNode *tree, mathNode *templ, bool wasCollision)
 					return equal;		
 	}
 	return nullptr;
-	
+}	
 /*	if (tree->arg == templateTree->arg && (templateTree->type != mathNode::Types::VAR || inReplace))
 	{
 		if (templateTree->arg == "+" || templateTree->arg == "*")
@@ -57,7 +64,9 @@ mathNode* existEqualSubgraph(mathNode *tree, mathNode *templ, bool wasCollision)
 
 	return false;
 */
-}
+
+
+
 /*
 mathNode *findSubgraph(mathNode *baseGraph, mathNode *templateGraph, typeReplacement &replace)
 {

@@ -33,7 +33,10 @@ void mathNode::free()
 {
 	for (auto i : params)
 		if (i)
+		{
 			i->free();
+			i = nullptr;
+		}
 	delete this;
 }
 
@@ -108,14 +111,13 @@ void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream 
 				if (calledNodes->at(k) == j)
 					f = true;
 			if (f)
-				streamOut << "│" << "   ";
+				streamOut << "│" << "  ";
 			else
-				streamOut << " " << "   ";
+				streamOut << " " << "  ";
 		}
 
 		streamOut << (i == (params.size() - 1) ? "└" : "├" );
-		for (int j(0); j < 3; j++)
-			streamOut << "─";
+		streamOut << "──";
 
 		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
 		if (i == params.size() - 1 && del != calledNodes->end())

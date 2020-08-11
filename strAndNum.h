@@ -16,6 +16,8 @@ std::string delBrackets(std::string str);
 
 bool isNumber(std::string str);
 bool isVariable(std::string str);
+bool isSmalVariable(std::string str);
+bool isBigVariable(std::string str);
 bool isFunction(std::string str);
 
 #endif
