@@ -1,11 +1,4 @@
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <iostream>
-
 #include "../mathTree.h"
-#include "../mathNode.h"
-#include "../strAndNum.h"
 
 mathTree::mathTree()
 {

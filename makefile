@@ -18,11 +18,6 @@ vpath %.o $(OBJ_DIR)
 
 default: $(EXEC) test 
 
-#execute main file
-exec: $(EXEC)
-	clear
-	@./$(EXEC)
-
 #execute tests (and build tests)
 test: buildTests 
 	@echo
@@ -41,11 +36,11 @@ $(OBJ_DIR)/%.o: %.cpp
 	g++ -c $(FLG_O) $(FLG_D) -o $@ $<
 
 #build all tests
-buildTests: $(TESTS:%.cpp=%)
+buildTests: $(TESTS:%.cpp=%) 
 	
 #build test file from .cpp
-$(TEST_DIR)/%: $(TEST_DIR)/%.cpp
-	g++ $(FLG_O) $(FLG_D) $^ $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o) -o $@
+$(TEST_DIR)/%: $(TEST_DIR)/%.cpp $(SRC)
+	g++ $(FLG_O) $(FLG_D) $< $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o) -o $@
 
 
 clearObj: ;-rm $(OBJ_DIR)/*  $(EXEC)

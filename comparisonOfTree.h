@@ -1,9 +1,7 @@
 #ifndef COMPARISON_OF_TREE_H
 #define COMPARISON_OF_TREE_H
 
-#include <vector>
-#include <string>
-#include <iostream>
+
 #include "mathNode.h"
 #include "mathTree.h"
 #include "strAndNum.h"

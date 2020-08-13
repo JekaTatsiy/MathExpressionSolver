@@ -1,4 +1,3 @@
-#include <assert.h>
 #include "../strAndNum.h"
 
 bool belong(int beginValue, int endValue, int targetValue)

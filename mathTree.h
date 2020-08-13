@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <algorithm>
+
 #include "mathNode.h"
 
 //contain math expression in the form a tree

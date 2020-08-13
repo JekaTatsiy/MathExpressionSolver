@@ -12,9 +12,24 @@ mathNode* existEqualSubgraph(mathNode *tree, mathNode *templ, bool wasCollision)
 		else
 			return tree;
 	}
+	else if(tree->arg == "+" || tree->arg == "*")	
+	{		
+		for(int i=0;i<tree->params.size();i++)
+		{
+			bool existEqual=false;
+			for(int j=0;j<templ->params.size();j++)
+				if (existEqualSubgraph(tree->params[i],templ->params[j]),true)
+				{
+					existEqual=true;
+					break;
+				}
+			if(!existEqual)
+				return nullptr;
+		}
+		return tree;
+	}
 	else if(tree->arg == templ->arg && tree->params.size()==templ->params.size())
 	{
-		//проверить, возможно ли найти подходящие шаблоны, если пройти вглубь (для комутативных операторов)
 		for(int i=0;i<tree->params.size();i++)
 			if(!existEqualSubgraph(tree->params[i],templ->params[i],true))
 				return nullptr;
