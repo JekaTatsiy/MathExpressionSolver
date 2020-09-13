@@ -57,4 +57,6 @@ private:
 	mathNode *parseNode(std::string);
 };
 
+mathTree toTree(std::string);
+
 #endif

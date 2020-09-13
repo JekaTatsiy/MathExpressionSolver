@@ -15,16 +15,14 @@ mathNode::mathNode(std::string act, Types tp)
 }
 
 mathNode::mathNode(std::string act, Types tp, mathNode *a)
+:mathNode(act,tp)
 {
-	arg = act;
-	type = tp;
 	params.push_back(a);
 }
 
 mathNode::mathNode(std::string act, Types tp, mathNode *a, mathNode *b)
+:mathNode(act,tp)
 {
-	arg = act;
-	type = tp;
 	params.push_back(a);
 	params.push_back(b);
 }
@@ -47,6 +45,7 @@ void mathNode::addParam(mathNode *param)
 
 double mathNode::getResult(std::vector<std::string> var, std::vector<double> valVar)
 {
+	/*
 	if (this->type == OPER)
 	{
 		if (arg == "+")
@@ -82,6 +81,8 @@ double mathNode::getResult(std::vector<std::string> var, std::vector<double> val
 		return toNumber(arg);
 
 	return 0; //undef
+	*/
+	return 0.0;
 }
 
 void mathNode::print(std::ostream &streamOut, bool showTypeNodes)
@@ -93,6 +94,7 @@ void mathNode::print(std::ostream &streamOut, bool showTypeNodes)
 
 void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes)
 {
+	
 	std::vector<int>::iterator del;
 	streamOut << arg;
 	if (showTypeNodes || type == mathNode::Types::UNDEF)
@@ -102,7 +104,8 @@ void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream 
 	calledNodes->push_back(layer);
 	bool f;
 
-	for (int i(0); i < params.size(); i++)
+	//for (int i(0); i < params.size(); i++)
+	for(std::list<mathNode*>::iterator i=params.begin(); i!=params.end();i++)
 	{
 		for (int j(0); j < layer; j++)
 		{
@@ -116,14 +119,14 @@ void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream 
 				streamOut << " " << "  ";
 		}
 
-		streamOut << (i == (params.size() - 1) ? "└" : "├" );
+		streamOut << (*i == *params.rbegin() ? "└" : "├" );
 		streamOut << "──";
-
+		
 		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
-		if (i == params.size() - 1 && del != calledNodes->end())
+		if (*i == *params.rbegin() && del != calledNodes->end())
 			calledNodes->erase(del);
-
-		params[i]->printNode(layer + 1, calledNodes, streamOut, showTypeNodes);
+		
+		(*i)->printNode(layer + 1, calledNodes, streamOut, showTypeNodes);
 	}
 	del = std::find(calledNodes->begin(), calledNodes->end(), layer);
 	if (del != calledNodes->end())

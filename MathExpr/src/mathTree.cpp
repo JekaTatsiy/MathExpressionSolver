@@ -195,3 +195,8 @@ mathNode *mathTree::parseNode(std::string expression)
 
 	return new mathNode(expression, mathNode::Types::UNDEF); //undefine
 }
+
+mathTree toTree(std::string arg)
+{
+	return mathTree(arg);
+}

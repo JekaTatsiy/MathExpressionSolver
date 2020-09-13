@@ -1,7 +1,7 @@
 #compiller files
 obj/
-tests/*
-!tests/*.cpp
+test/*
+!test/*.cpp
 
 #tmp files
 .*.*
@@ -9,5 +9,5 @@ tests/*
 .vscode/
 
 #exec files
-prog
-*.exe
+**prog
+**.exe
