@@ -3,8 +3,8 @@
 template <class Type>
 inline Type matrix_base_op<Type>::det(int dir, int lineNum)
 {
-	assert(this->Rows() == this->Columns() && " Матрица должна быть квадратной.");
-	assert((lineNum < 0 || dir != D_NO_DIR) && " Если задана строка, должно быть задано направление.");
+	assert(this->Rows() == this->Columns() && " еееее ееееее ееее еееее?е.");
+	assert((lineNum < 0 || dir != D_NO_DIR) && " е? ееееее ее?е, ееееее ееее ееееее еее?еееее.");
 
 	if (this->Rows() > 3 || lineNum != -1)
 	{
@@ -81,7 +81,7 @@ inline Type matrix_base_op<Type>::det(int dir, int lineNum)
 		}
 		else
 		{
-			assert(this->Rows()<=0 && "Неверный размер матрици.");
+			assert(this->Rows()<=0 && "ееееее ?еее еееее.");
 			return 0;
 		}
 	}
@@ -100,7 +100,7 @@ inline matrix_base_op<Type> matrix_base_op<Type>::T()
 template <class Type>
 inline matrix_base_op<Type> matrix_base_op<Type>::M(int i_arg, int j_arg)
 {
-	assert(this->Rows() == this->Columns() && " Матрица должна быть квадратной.");
+	assert(this->Rows() == this->Columns() && " еееее ееееее ееее еееее?е.");
 	//	i_arg += CORRECT_ADRES;
 	//	j_arg += CORRECT_ADRES;
 	return matrix_base_op<Type>(

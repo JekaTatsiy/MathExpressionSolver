@@ -10,7 +10,7 @@
 #include <assert.h>
 using namespace std;
 
-#include "../MathTree/mathTree.h"
+#include "../MathExpr/mathTree.h"
 
 #ifndef CORRECT_ADRES
 	#ifdef ADDRESSES_AS_MATH

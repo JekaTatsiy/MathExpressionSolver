@@ -1,4 +1,5 @@
 #include "../comparisonOfTree.h"
+#include "../mathNode.h"
 
 
 void typeReplace::addEqual(std::string templ, mathNode* node)

@@ -1,11 +1,9 @@
 #pragma once
 #ifndef MATRIX_AS_MAP_H
 #define MATRIX_AS_MAP_H
-
 //use matrix as map
-template <class Type>
-class matrix_as_map : public matrix_data<Type>
-{
+template <typename Type>
+class matrix_as_map : public matrix_data<Type>{
 public:
 	matrix_as_map(int r = 0, int c = 0, int s = S_BRACKETS)
 		: matrix_data<Type>(r, c, s) {}

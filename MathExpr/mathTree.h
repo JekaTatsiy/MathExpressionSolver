@@ -16,7 +16,7 @@ public:
 	mathTree(std::string);
 	mathTree(const mathTree &);
 	~mathTree();
-	
+
 	void set(std::string);
 
 	mathTree &operator=(const mathTree &);
@@ -27,7 +27,7 @@ public:
 	//erase all memory
 	void clear();
 	//print tree
-	void print(std::ostream & = std::cout, bool = false);
+	void print(std::ostream & = std::cout, bool = false, bool = false);
 
 	//init values for variables
 	void init();

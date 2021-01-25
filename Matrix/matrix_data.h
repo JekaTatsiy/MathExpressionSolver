@@ -3,10 +3,13 @@
 #define MATRIX_DATA_H
 
 #include <vector>
+#include <functional>
 #include <iostream>
 #include <iomanip>
 #include <math.h>
 #include <assert.h>
+#include "matrix.h"
+
 
 //base matrix operations with data
 template <class T>
@@ -24,22 +27,22 @@ class matrix_data
 
 	void createMatrix();
 	void initMatrix(T **);
-	void initMatrix(const vector<T>&);
-	void initMatrix(const vector<vector<T>>&);
-	void initMatrix(const function<T(int, int)>&);
+	void initMatrix(const std::vector<T>&);
+	void initMatrix(const std::vector<std::vector<T>>&);
+	void initMatrix(const std::function<T(int, int)>&);
 
 public:
 	matrix_data(int = 0, int = 0, int = S_BRACKETS);
-	matrix_data(int, int, const function<T(int, int)>& = M_ZERO, int = S_BRACKETS);
+	matrix_data(int, int, const std::function<T(int, int)>& = M_ZERO, int = S_BRACKETS);
 	matrix_data(int, int, const T **, int = S_BRACKETS);
-	matrix_data(int, int, const vector<T>&, int = S_BRACKETS);
-	matrix_data(const vector<vector<T>>&, int = S_BRACKETS);
+	matrix_data(int, int, const std::vector<T>&, int = S_BRACKETS);
+	matrix_data(const std::vector<std::vector<T>>&, int = S_BRACKETS);
 	matrix_data(const matrix_data<T> &);
 	~matrix_data();
 	void erase();
 
-	void reinit(const function<T(int, int)>&);
-	matrix_data<T> &reinit(int, int, const function<T(int, int)>&);
+	void reinit(const std::function<T(int, int)>&);
+	matrix_data<T> &reinit(int, int, const std::function<T(int, int)>&);
 
 	void setRow(int, matrix_data<T>&);
 	void setColumn(int, matrix_data<T>&);

@@ -5,7 +5,7 @@ mathTree::mathTree()
 	root = nullptr;
 }
 
-mathTree::mathTree(std::string expression):mathTree()
+mathTree::mathTree(std::string expression) : mathTree()
 {
 	set(expression);
 }
@@ -19,7 +19,7 @@ mathTree::mathTree(const mathTree &tree)
 
 mathTree::~mathTree()
 {
-	if(root)
+	if (root)
 		clear();
 }
 
@@ -32,9 +32,9 @@ mathTree &mathTree::operator=(const mathTree &tree)
 
 void mathTree::set(std::string expression)
 {
-	if(root)
+	if (root)
 		delete root;
-	if(expression.size()!=0)
+	if (expression.size() != 0)
 		root = parseNode(delBrackets(expression));
 }
 
@@ -47,21 +47,21 @@ void mathTree::clear()
 {
 	variables.clear();
 	valuesVariables.clear();
-	if(root)
+	if (root)
 		root->free();
-	root=nullptr;
+	root = nullptr;
 }
 
-void mathTree::print(std::ostream &streamOut, bool showTypeNodes)
+void mathTree::print(std::ostream &streamOut, bool showTypeNodes, bool showAdress)
 {
-	if(root)
+	if (root)
 	{
 		std::vector<int> calledNodes;
-		root->print(streamOut, showTypeNodes);
+		root->print(streamOut, showTypeNodes,showAdress);
 		streamOut << std::endl;
-	}else
-		streamOut << "no expression"<<std::endl;
-
+	}
+	else
+		streamOut << "no expression" << std::endl;
 }
 void mathTree::init()
 {

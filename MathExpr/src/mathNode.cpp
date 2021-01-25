@@ -15,13 +15,13 @@ mathNode::mathNode(std::string act, Types tp)
 }
 
 mathNode::mathNode(std::string act, Types tp, mathNode *a)
-:mathNode(act,tp)
+	: mathNode(act, tp)
 {
 	params.push_back(a);
 }
 
 mathNode::mathNode(std::string act, Types tp, mathNode *a, mathNode *b)
-:mathNode(act,tp)
+	: mathNode(act, tp)
 {
 	params.push_back(a);
 	params.push_back(b);
@@ -43,33 +43,38 @@ void mathNode::addParam(mathNode *param)
 	params.push_back(param);
 }
 
+//warning: need initialise all variables
 double mathNode::getResult(std::vector<std::string> var, std::vector<double> valVar)
 {
-	/*
-	if (this->type == OPER)
+	std::list<mathNode *>::iterator iter = params.begin();
+	//	std::cout << "(" << (*iter)->arg << ")  (" << (*(iter++))->arg << ")" << std::endl;
+	std::cout << arg << "  " << this << "  " << *iter << "  " << *(++iter) << std::endl;
+	iter = params.begin();
+
+	if (type == OPER)
 	{
 		if (arg == "+")
-			return params[0]->getResult(var, valVar) + params[1]->getResult(var, valVar);
+			return (*iter)->getResult(var, valVar) + (*(++iter))->getResult(var, valVar);
 		if (arg == "-")
-			return params[0]->getResult(var, valVar) - params[1]->getResult(var, valVar);
+			return (*iter)->getResult(var, valVar) - (*(++iter))->getResult(var, valVar);
 		if (arg == "*")
-			return params[0]->getResult(var, valVar) * params[1]->getResult(var, valVar);
+			return (*iter)->getResult(var, valVar) * (*(++iter))->getResult(var, valVar);
 		if (arg == "/")
-			return params[0]->getResult(var, valVar) / params[1]->getResult(var, valVar);
+			return (*iter)->getResult(var, valVar) / (*(++iter))->getResult(var, valVar);
 	}
 
 	if (type == FUNC)
 	{
 		if (arg == "ln")
-			return log(params[0]->getResult(var, valVar));
+			return log((*iter)->getResult(var, valVar));
 		if (arg == "pow")
-			return pow(params[0]->getResult(var, valVar), params[1]->getResult(var, valVar));
+			return pow((*iter)->getResult(var, valVar), (*(++iter))->getResult(var, valVar));
 		if (arg == "abs")
-			return abs(params[0]->getResult(var, valVar));
+			return abs((*iter)->getResult(var, valVar));
 		if (arg == "sin")
-			return sin(params[0]->getResult(var, valVar));
+			return sin((*iter)->getResult(var, valVar));
 		if (arg == "cos")
-			return cos(params[0]->getResult(var, valVar));
+			return cos((*iter)->getResult(var, valVar));
 	}
 
 	if (type == VAR)
@@ -81,31 +86,33 @@ double mathNode::getResult(std::vector<std::string> var, std::vector<double> val
 		return toNumber(arg);
 
 	return 0; //undef
-	*/
-	return 0.0;
+
+	//	return 0.0;
 }
 
-void mathNode::print(std::ostream &streamOut, bool showTypeNodes)
+void mathNode::print(std::ostream &streamOut, bool showTypeNodes, bool showAdress)
 {
 	std::vector<int> calledNodes;
-	this->printNode(0, &calledNodes, streamOut, showTypeNodes);
+	this->printNode(0, &calledNodes, streamOut, showTypeNodes, showAdress);
 	std::cout << std::endl;
 }
 
-void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes)
+void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream &streamOut, bool showTypeNodes, bool showAdress)
 {
-	
+
 	std::vector<int>::iterator del;
 	streamOut << arg;
 	if (showTypeNodes || type == mathNode::Types::UNDEF)
 		streamOut << "  -> " << type;
+	if (showAdress)
+		streamOut << "(" << this << ")";
 	streamOut << std::endl;
 
 	calledNodes->push_back(layer);
 	bool f;
 
 	//for (int i(0); i < params.size(); i++)
-	for(std::list<mathNode*>::iterator i=params.begin(); i!=params.end();i++)
+	for (std::list<mathNode *>::iterator i = params.begin(); i != params.end(); i++)
 	{
 		for (int j(0); j < layer; j++)
 		{
@@ -114,22 +121,23 @@ void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream 
 				if (calledNodes->at(k) == j)
 					f = true;
 			if (f)
-				streamOut << "│" << "  ";
+				streamOut << "�"
+						  << "  ";
 			else
-				streamOut << " " << "  ";
+				streamOut << " "
+						  << "  ";
 		}
 
-		streamOut << (*i == *params.rbegin() ? "└" : "├" );
-		streamOut << "──";
-		
+		streamOut << (*i == *params.rbegin() ? "�" : "�");
+		streamOut << "��";
+
 		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
 		if (*i == *params.rbegin() && del != calledNodes->end())
 			calledNodes->erase(del);
-		
-		(*i)->printNode(layer + 1, calledNodes, streamOut, showTypeNodes);
+
+		(*i)->printNode(layer + 1, calledNodes, streamOut, showTypeNodes, showAdress);
 	}
 	del = std::find(calledNodes->begin(), calledNodes->end(), layer);
 	if (del != calledNodes->end())
 		calledNodes->erase(del);
 }
-

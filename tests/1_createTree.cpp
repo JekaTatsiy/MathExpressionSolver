@@ -3,7 +3,7 @@
 #include <string>
 #include <iomanip>
 
-#include "../mathExpr.h"
+#include "../MathExpr/mathExpr.h"
 
 using namespace std;
 
