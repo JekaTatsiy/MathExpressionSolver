@@ -7,24 +7,28 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
-	cout << "test \"find subgraph\" ";
+	bool view = false;
+	if (argc == 2 && (argv[1] == "-V") || (argv[1] == "view"))
+		view = true;
 
-	vector<string> dataExpr = 
-	{"x+y",	"a+b",	"a-b",	"a+b+c",	"a*(b+c)",	"a*(b+c)",	"(a+b)/(c-d)",		"a+(b-c^2)",	"1+2+3+x",	"1+2+3+x",	"x^3+z+1",	"x^3+y^2+z+1",	"x^3+y^2+z+1",	"x^3+y^2+z+1",	"x^3+y^2+z+1",	"sin(x)+y",	"y+1",	"y+1",	"y+1",	"pow(x,2)"};
-	vector<string> dataTmpl = 
-	{"A+B",	"A-B",	"a+b",	"A-B",		"A*B",		"A+B",		"A/B",				"A^2",			"1+A",		"2+x",		"A^2+1",		"x^3+1",		"A^3+B^2+1",	"A^2+1+B^3",	"y^2+1+x^3",	"A+sin(B)",	"x+1",	"1+y",	"1+A",	"pow(2,x)"};	
-	vector<bool> ans = 
-	{true,	false,	false,	false,		true,		true,		true,				true,			true,		true,		false,			true,			true,			true,			true,			true,		false,	true,	true,	false};
-	
+	cout << "test \"find subgraph\" " << endl;
+
+	vector<string> dataExpr =
+		{"x+y", "a+b", "a-b", "a+b+c", "a*(b+c)", "a*(b+c)", "(a+b)/(c-d)", "a+(b-c^2)", "1+2+3+x", "1+2+3+x", "x^3+z+1", "x^3+y^2+z+1", "x^3+y^2+z+1", "x^3+y^2+z+1", "x^3+y^2+z+1", "sin(x)+y", "y+1", "y+1", "y+1", "pow(x,2)"};
+	vector<string> dataTmpl =
+		{"A+B", "A-B", "a+b", "A-B", "A*B", "A+B", "A/B", "A^2", "1+A", "2+x", "A^2+1", "x^3+1", "A^3+B^2+1", "A^2+1+B^3", "y^2+1+x^3", "A+sin(B)", "x+1", "1+y", "1+A", "pow(2,x)"};
+	vector<bool> ans =
+		{true, false, false, false, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, false};
+
 	vector<bool> myAns;
 	int cntQ = ans.size();
 	int cntCorrectA = 0;
-		
-	if(dataExpr.size() != dataTmpl.size() || dataExpr.size() != ans.size())
+
+	if (dataExpr.size() != dataTmpl.size() || dataExpr.size() != ans.size())
 	{
-		cout << "error: count Q != A"<<endl;
+		cout << "error: count Q != A" << endl;
 		return 0;
 	}
 
@@ -37,29 +41,34 @@ int main()
 	{
 		expr.set(dataExpr[i]);
 		tmpl.set(dataTmpl[i]);
-		curAns = existEqualSubgraph(expr.getTree(),tmpl.getTree(),repl);
-		myAns.push_back(curAns==nullptr?false:true);
-		cntCorrectA += (myAns[i]==ans[i]);
-		
+		curAns = existEqualSubgraph(expr.getTree(), tmpl.getTree(), repl);
+		myAns.push_back(curAns == nullptr ? false : true);
+		cntCorrectA += (myAns[i] == ans[i]);
 
-		cout << endl << "{" << dataExpr[i] << ", " << dataTmpl[i] << "}"<<endl;
-		repl.print();
+		if (view)
+		{
+			cout << endl
+				 << "{" << dataExpr[i] << ", " << dataTmpl[i] << "}" << endl;
+			repl.print();
+		}
 		repl.clear();
-
 	}
-	cout << "done" << endl; 
-	if(cntCorrectA != cntQ)
-	{
-		for(int i=0;i<myAns.size();i++)
-			cout << (myAns[i] == ans[i]?'+':'-') << " ";		
-		cout << endl;
 
-		for(int i=0;i<myAns.size();i++)
-			if(myAns[i]!=ans[i])
-				cout << "{" << dataExpr[i] << ", " << dataTmpl[i] << ", " << "cor: "<<ans[i] << "  my: " << myAns[i] << "}" << endl;
-		cout << endl;
-	}
+	if (view)
+		if (cntCorrectA != cntQ)
+		{
+			for (int i = 0; i < myAns.size(); i++)
+				cout << (myAns[i] == ans[i] ? '+' : '-') << " ";
+			cout << endl;
+
+			for (int i = 0; i < myAns.size(); i++)
+				if (myAns[i] != ans[i])
+					cout << "{" << dataExpr[i] << ", " << dataTmpl[i] << ", "
+						 << "cor: " << ans[i] << "  my: " << myAns[i] << "}" << endl;
+			cout << endl;
+		}
+		
+	cout << "\tdone." << endl;
 
 	return 0;
 }
-

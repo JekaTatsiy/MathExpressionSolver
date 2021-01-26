@@ -46,35 +46,30 @@ void mathNode::addParam(mathNode *param)
 //warning: need initialise all variables
 double mathNode::getResult(std::vector<std::string> var, std::vector<double> valVar)
 {
-	std::list<mathNode *>::iterator iter = params.begin();
-	//	std::cout << "(" << (*iter)->arg << ")  (" << (*(iter++))->arg << ")" << std::endl;
-	std::cout << arg << "  " << this << "  " << *iter << "  " << *(++iter) << std::endl;
-	iter = params.begin();
-
 	if (type == OPER)
 	{
 		if (arg == "+")
-			return (*iter)->getResult(var, valVar) + (*(++iter))->getResult(var, valVar);
+			return (*params.begin())->getResult(var, valVar) + (*(++params.begin()))->getResult(var, valVar);
 		if (arg == "-")
-			return (*iter)->getResult(var, valVar) - (*(++iter))->getResult(var, valVar);
+			return (*params.begin())->getResult(var, valVar) - (*(++params.begin()))->getResult(var, valVar);
 		if (arg == "*")
-			return (*iter)->getResult(var, valVar) * (*(++iter))->getResult(var, valVar);
+			return (*params.begin())->getResult(var, valVar) * (*(++params.begin()))->getResult(var, valVar);
 		if (arg == "/")
-			return (*iter)->getResult(var, valVar) / (*(++iter))->getResult(var, valVar);
+			return (*params.begin())->getResult(var, valVar) / (*(++params.begin()))->getResult(var, valVar);
 	}
 
 	if (type == FUNC)
 	{
 		if (arg == "ln")
-			return log((*iter)->getResult(var, valVar));
+			return log((*params.begin())->getResult(var, valVar));
 		if (arg == "pow")
-			return pow((*iter)->getResult(var, valVar), (*(++iter))->getResult(var, valVar));
+			return pow((*params.begin())->getResult(var, valVar), (*(++params.begin()))->getResult(var, valVar));
 		if (arg == "abs")
-			return abs((*iter)->getResult(var, valVar));
+			return abs((*params.begin())->getResult(var, valVar));
 		if (arg == "sin")
-			return sin((*iter)->getResult(var, valVar));
+			return sin((*params.begin())->getResult(var, valVar));
 		if (arg == "cos")
-			return cos((*iter)->getResult(var, valVar));
+			return cos((*params.begin())->getResult(var, valVar));
 	}
 
 	if (type == VAR)
@@ -121,15 +116,15 @@ void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream 
 				if (calledNodes->at(k) == j)
 					f = true;
 			if (f)
-				streamOut << "�"
+				streamOut << char(V_LINE)
 						  << "  ";
 			else
 				streamOut << " "
 						  << "  ";
 		}
 
-		streamOut << (*i == *params.rbegin() ? "�" : "�");
-		streamOut << "��";
+		streamOut << (*i == *params.rbegin() ? char(VE_LINE) : char(VL_LINE));
+		streamOut << char(H_LINE) << char(H_LINE);
 
 		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
 		if (*i == *params.rbegin() && del != calledNodes->end())

@@ -1,8 +1,8 @@
 FLG =
-FILE_PREV_FLG = .prev_options.txt
+FILE_PREV_FLG = .compilation_options.txt
 
 ifeq ($(OS),Windows_NT)
-FILE_READER = TYPE
+FILE_READER = type
 FILE_ERASER = del
 ERASER_OPT = /q
 OBJ_TYPE = .lib
@@ -20,6 +20,7 @@ endif
 
 FLG_O = -std=c++14
 FLG_D = -MMD
+FLG_TEST = #-V
 
 CUR_FLG = $(strip $(FLG_O) $(FLG_D) $(FLG))
 PREV_FLG = $(strip $(shell $(FILE_READER) $(FILE_PREV_FLG)))
@@ -45,32 +46,45 @@ TESTS_EXEC = $(TESTS_SRC:$(TESTS_SRC_DIR)/%.cpp=$(TESTS_EXEC_DIR)/%$(PROG_TYPE))
 .PHONY: default test clearObj clearTests clearVim clear
 ###################################################
 
-default: $(EXEC) test 
 
-$(EXEC): $(ALL_OBJ)
-	g++ $(ALL_OBJ) -o $(EXEC)$(PROG_TYPE) 
-ifeq ($(CUR_FLG), $(PREV_FLG))
-	@echo $(CUR_FLG) > $(FILE_PREV_FLG)
+default: release test 
+
+release: 
+ifneq ($(FLG_O) $(FLG_D), $(PREV_FLG))
+	make clear
 endif
+	make $(EXEC) -j 
 
 debug:
-	make prog -j FLG=-g
+ifneq ($(FLG_O) $(FLG_D) -g, $(PREV_FLG))
+	make clear
+endif
+	make $(EXEC) -j FLG=-g
 
 #execute tests (and build tests)
 test: $(TESTS_EXEC) 
 ifeq ($(OS),Windows_NT)
-	for %%i in ($(subst /,\,$^)) do %%i
+	@for %%i in ($(subst /,\,$^)) do %%i $(FLG_TEST)
 endif
 ifeq ($(OS),UNIX)
 	@echo
 	@for currentTest in $^; do\
-		$$currentTest;\
+		$$currentTest $(FLG_TEST);\
 	done
 	@echo
 endif
 
+$(EXEC): $(ALL_OBJ)
+	g++ $(ALL_OBJ) -o $(EXEC)$(PROG_TYPE) 
+	@echo $(CUR_FLG) > $(FILE_PREV_FLG)
+
+	
+start:
+	$(EXEC)$(PROG_TYPE) $(FLG)
+	
+
 $(ALL_OBJ): $(OBJ_DIR)/%$(OBJ_TYPE): %.cpp
-	g++ -c $(FLG) $(FLG_O) $(FLG_D) $< -o $@ 
+	g++ -c $(CUR_FLG) $< -o $@ 
 
 ###################################################
 
@@ -80,8 +94,11 @@ $(TESTS_EXEC): $(TESTS_EXEC_DIR)/%$(PROG_TYPE): $(TESTS_SRC_DIR)/%.cpp $(OBJ)
 	g++ $(CUR_FLG) $^ -o $@
 
 
-clearObj: ;-@$(FILE_ERASER) $(OBJ_DIR)\*  $(EXEC)$(PROG_TYPE) $(ERASER_OPT)
-clearTests: ;-@$(FILE_ERASER) $(subst /,\,$(TESTS_EXEC_DIR))\* $(ERASER_OPT)
+clearObj: 
+	-@$(FILE_ERASER) $(OBJ_DIR)\* $(ERASER_OPT)
+	-@$(FILE_ERASER) $(EXEC)$(PROG_TYPE) $(ERASER_OPT)
+clearTests: 
+	-@$(FILE_ERASER) $(subst /,\,$(TESTS_EXEC_DIR))\* $(ERASER_OPT)
 clearVim: 
 clear: clearObj clearTests clearVim
 

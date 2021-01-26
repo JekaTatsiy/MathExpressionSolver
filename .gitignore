@@ -1,5 +1,6 @@
 #compiller files
 obj/
+obj_debug/
 test/*
 !test/*.cpp
 

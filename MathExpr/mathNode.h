@@ -8,6 +8,11 @@
 #include <cmath>
 #include "strAndNum.h"
 
+#define V_LINE 179
+#define VE_LINE 192
+#define H_LINE 196
+#define VL_LINE 195
+
 #define BIG_VAR_LAST [](const mathNode *a, const mathNode *b) -> bool { return isBigVariable(b->arg) ? true : false; }
 
 //contain one math expression
