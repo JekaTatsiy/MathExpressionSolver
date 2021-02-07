@@ -24,6 +24,7 @@ class matrix_data
 	void printVoid(std::ostream &,int);
 	void printBrackets(std::ostream &,int);
 	void printTwoLines(std::ostream &,int);
+	void printGrid(std::ostream &,int);
 
 	void createMatrix();
 	void initMatrix(T **);

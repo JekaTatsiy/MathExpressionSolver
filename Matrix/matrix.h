@@ -23,6 +23,7 @@ using namespace std;
 #define S_VOID 0
 #define S_BRACKETS 1
 #define S_TWO_LINES 2
+#define S_GRID 3
 
 #define D_NO_DIR 10
 #define D_ROW 11
@@ -54,6 +55,7 @@ class matrix_as_map;
 #include "matrix_data.h"
 #include "matrix_base_op.h"
 #include "matrix_as_map.h"
+#include "smartMatrix.h"
 
 typedef vector<vector<int>> intVecMatr;
 typedef vector<vector<float>> fltVecMatr;

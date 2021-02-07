@@ -116,15 +116,15 @@ void mathNode::printNode(int layer, std::vector<int> *calledNodes, std::ostream 
 				if (calledNodes->at(k) == j)
 					f = true;
 			if (f)
-				streamOut << char(V_LINE)
+				streamOut << char(LINE_V)
 						  << "  ";
 			else
 				streamOut << " "
 						  << "  ";
 		}
 
-		streamOut << (*i == *params.rbegin() ? char(VE_LINE) : char(VL_LINE));
-		streamOut << char(H_LINE) << char(H_LINE);
+		streamOut << (*i == *params.rbegin() ? char(LINE_UR) : char(LINE_VR));
+		streamOut << char(LINE_H) << char(LINE_H);
 
 		del = std::find(calledNodes->begin(), calledNodes->end(), layer);
 		if (*i == *params.rbegin() && del != calledNodes->end())

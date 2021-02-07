@@ -83,7 +83,7 @@ ifeq ($(OS),UNIX)
 endif
 
 $(EXEC): $(OBJ)
-	g++ $(OBJ) main.cpp -o $(EXEC)$(PROG_TYPE) 
+	g++ $(OBJ) main.cpp $(FLG) -o $(EXEC)$(PROG_TYPE) 
 	@echo $(CUR_FLG) > $(FILE_PREV_FLG)	
 
 start:

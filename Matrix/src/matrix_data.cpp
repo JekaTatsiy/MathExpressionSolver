@@ -238,6 +238,9 @@ inline void matrix_data<T>::print(std::ostream &out)
 	case S_TWO_LINES:
 		printTwoLines(out, maxLen);
 		break;
+	case S_GRID:
+		printGrid(out, maxLen);
+		break;
 
 	default:
 		out << "style not found\n";
@@ -278,4 +281,9 @@ inline void matrix_data<T>::printTwoLines(std::ostream &out, int maxLen)
 			out << setw(maxLen + 1) << matr[i][j] << " ";
 		out << '|' << endl;
 	}
+}
+template <typename T>
+inline void matrix_data<T>::printGrid(std::ostream &out, int maxLen)
+{
+	assert("need create function");
 }
