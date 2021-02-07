@@ -2,7 +2,6 @@
 #define SMART_MATRIX_H
 
 #include "matrix.h"
-#include "../MathTree/mathTree.h"
 
 class smartMatrix : public matrix_base_op<mathTree>
 {

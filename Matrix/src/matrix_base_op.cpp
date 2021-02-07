@@ -3,8 +3,8 @@
 template <class Type>
 inline Type matrix_base_op<Type>::det(int dir, int lineNum)
 {
-	assert(this->Rows() == this->Columns() && " ¥¥¥¥¥ ¥¥¥¥¥¥ ¥¥¥¥ ¥¥¥¥¥?¥.");
-	assert((lineNum < 0 || dir != D_NO_DIR) && " ¥? ¥¥¥¥¥¥ ¥¥?¥, ¥¥¥¥¥¥ ¥¥¥¥ ¥¥¥¥¥¥ ¥¥¥?¥¥¥¥¥.");
+	assert(this->Rows() == this->Columns() && " ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½.");
+	assert((lineNum < 0 || dir != D_NO_DIR) && " ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½?ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½.");
 
 	if (this->Rows() > 3 || lineNum != -1)
 	{
@@ -81,7 +81,7 @@ inline Type matrix_base_op<Type>::det(int dir, int lineNum)
 		}
 		else
 		{
-			assert(this->Rows()<=0 && "¥¥¥¥¥¥ ?¥¥¥ ¥¥¥¥¥.");
+			assert(this->Rows()<=0 && "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ?ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.");
 			return 0;
 		}
 	}
@@ -100,7 +100,7 @@ inline matrix_base_op<Type> matrix_base_op<Type>::T()
 template <class Type>
 inline matrix_base_op<Type> matrix_base_op<Type>::M(int i_arg, int j_arg)
 {
-	assert(this->Rows() == this->Columns() && " ¥¥¥¥¥ ¥¥¥¥¥¥ ¥¥¥¥ ¥¥¥¥¥?¥.");
+	assert(this->Rows() == this->Columns() && " ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½.");
 	//	i_arg += CORRECT_ADRES;
 	//	j_arg += CORRECT_ADRES;
 	return matrix_base_op<Type>(

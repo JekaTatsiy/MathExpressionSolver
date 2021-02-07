@@ -1,6 +1,8 @@
 FLG =
-FILE_PREV_FLG = .compilation_options.txt
+FILE_PREV_FLG = .compilation_options.txt #previous compiler options
+FILE_SCIP_COMP = .scip_compilation.txt #
 
+#work in different OS
 ifeq ($(OS),Windows_NT)
 FILE_READER = type
 FILE_ERASER = del
@@ -17,27 +19,29 @@ OBJ_TYPE = .o
 PROG_TYPE = 
 endif
 
-
+#standart compiler options
 FLG_O = -std=c++14
 FLG_D = -MMD
-FLG_TEST = #-V
+#test execution options
+FLG_TEST =
 
+#options in one variable
 CUR_FLG = $(strip $(FLG_O) $(FLG_D) $(FLG))
 PREV_FLG = $(strip $(shell $(FILE_READER) $(FILE_PREV_FLG)))
 
+#
+SCIP_COMP = $(strip $(shell $(FILE_READER) $(FILE_SCIP_COMP)))
+
+#standart folders
 EXEC = prog
-SRC_DIR = MathExpr/src Matrix/src
+SRC_DIR = **/src
 OBJ_DIR = obj
 TESTS_SRC_DIR = tests
 TESTS_EXEC_DIR = tests/exec
 
-vpath %.cpp = MathExpr/src;Matrix/src
-vpath %.$(OBJ_TYPE) = $(OBJ_DIR)
-SRC = $(wildcard MathExpr/src/*.cpp) Matrix/src/matrix.cpp
-ALL_SRC = main.cpp $(SRC) 
-NAMES =$(patsubst Matrix/src/%, %, $(patsubst MathExpr/src/%, %, $(SRC)))
-OBJ = $(NAMES:%.cpp=$(OBJ_DIR)/%$(OBJ_TYPE)) 
-ALL_OBJ = $(OBJ_DIR)/main$(OBJ_TYPE) $(OBJ)
+
+SRC = $(filter-out $(SCIP_COMP), $(wildcard $(SRC_DIR)/*.cpp))
+OBJ = $(patsubst  %.cpp,$(OBJ_DIR)/%$(OBJ_TYPE),$(notdir $(SRC))) 
 
 TESTS_SRC = $(wildcard $(TESTS_SRC_DIR)/*.cpp)
 TESTS_EXEC = $(TESTS_SRC:$(TESTS_SRC_DIR)/%.cpp=$(TESTS_EXEC_DIR)/%$(PROG_TYPE))
@@ -49,22 +53,26 @@ TESTS_EXEC = $(TESTS_SRC:$(TESTS_SRC_DIR)/%.cpp=$(TESTS_EXEC_DIR)/%$(PROG_TYPE))
 
 default: release test 
 
+
 release: 
 ifneq ($(FLG_O) $(FLG_D), $(PREV_FLG))
 	make clear
 endif
 	make $(EXEC) -j 
+	make $(TESTS_EXEC)
+
 
 debug:
 ifneq ($(FLG_O) $(FLG_D) -g, $(PREV_FLG))
 	make clear
 endif
 	make $(EXEC) -j FLG=-g
+	make $(TESTS_EXEC) FLG=-g
 
 #execute tests (and build tests)
 test: $(TESTS_EXEC) 
 ifeq ($(OS),Windows_NT)
-	@for %%i in ($(subst /,\,$^)) do %%i $(FLG_TEST)
+	@for %%i in ($(subst /,\,$^)) do (%%i $(FLG_TEST))
 endif
 ifeq ($(OS),UNIX)
 	@echo
@@ -74,17 +82,22 @@ ifeq ($(OS),UNIX)
 	@echo
 endif
 
-$(EXEC): $(ALL_OBJ)
-	g++ $(ALL_OBJ) -o $(EXEC)$(PROG_TYPE) 
-	@echo $(CUR_FLG) > $(FILE_PREV_FLG)
+$(EXEC): $(OBJ)
+	g++ $(OBJ) main.cpp -o $(EXEC)$(PROG_TYPE) 
+	@echo $(CUR_FLG) > $(FILE_PREV_FLG)	
 
-	
 start:
 	$(EXEC)$(PROG_TYPE) $(FLG)
 	
-
-$(ALL_OBJ): $(OBJ_DIR)/%$(OBJ_TYPE): %.cpp
-	g++ -c $(CUR_FLG) $< -o $@ 
+init:
+ifeq ($(OS),Windows_NT)
+	echo .compilation_options.txt > 
+	mkdir obj
+endif 
+ifeq ($(OS),UNIX)
+	touch .compilation_options.txt
+	mkdir obj
+endif 
 
 ###################################################
 
@@ -93,15 +106,20 @@ $(ALL_OBJ): $(OBJ_DIR)/%$(OBJ_TYPE): %.cpp
 $(TESTS_EXEC): $(TESTS_EXEC_DIR)/%$(PROG_TYPE): $(TESTS_SRC_DIR)/%.cpp $(OBJ)
 	g++ $(CUR_FLG) $^ -o $@
 
+#build obj file from .cpp
+$(OBJ): 
+	g++ $(CUR_FLG) -c $(filter %$(basename $(notdir $@)).cpp, $(SRC)) -o $@
+	
+
 
 clearObj: 
-	-@$(FILE_ERASER) $(OBJ_DIR)\* $(ERASER_OPT)
-	-@$(FILE_ERASER) $(EXEC)$(PROG_TYPE) $(ERASER_OPT)
+	-@$(FILE_ERASER) $(subst /,\,$(OBJ_DIR)\*) $(ERASER_OPT)
 clearTests: 
-	-@$(FILE_ERASER) $(subst /,\,$(TESTS_EXEC_DIR))\* $(ERASER_OPT)
+	-@$(FILE_ERASER) $(EXEC)$(PROG_TYPE) $(ERASER_OPT)
+	-@$(FILE_ERASER) $(subst /,\,$(TESTS_EXEC_DIR)\*) $(ERASER_OPT)
 clearVim: 
 clear: clearObj clearTests clearVim
 
 
-include $(wildcard $(TEST_EXEC_DIR)\*.d)
-
+include $(wildcard $(TESTS_EXEC_DIR)/*.d)
+include $(wildcard $(OBJ_DIR)/*d)
