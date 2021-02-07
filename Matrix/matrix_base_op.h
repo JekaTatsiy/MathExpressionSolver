@@ -1,4 +1,3 @@
-#pragma once
 #ifndef MATRIX_BASE_OP_H
 #define MATRIX_BASE_OP_H
 

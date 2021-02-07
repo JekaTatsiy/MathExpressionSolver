@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <string>
+#include <string.h>
 #include <iomanip>
 
 #include "../MathExpr/mathExpr.h"
@@ -10,8 +10,9 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	bool view = false;
-	if (argc == 2 && (argv[1] == "-V") || (argv[1] == "view"))
-		view = true;
+	for (int i = 0; i < argc; i++)
+		if ((strcmp(argv[i],"-V")==0) || (strcmp(argv[i], "view")==0))
+			view = true;
 
 	cout << "test \"find subgraph\" " << endl;
 

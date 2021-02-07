@@ -1,0 +1,4 @@
+Matrix/src/matrix_as_map.cpp
+Matrix/src/matrix_base_op.cpp
+Matrix/src/matrix_data.cpp
+Matrix/src/smartMatrix.cpp
