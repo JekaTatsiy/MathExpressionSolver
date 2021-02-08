@@ -9,7 +9,7 @@
 #include <assert.h>
 using namespace std;
 
-#include "../MathExpr/mathTree.h"
+#include "../Expr/Expr.h"
 
 #ifndef CORRECT_ADRES
 	#ifdef ADDRESSES_AS_MATH

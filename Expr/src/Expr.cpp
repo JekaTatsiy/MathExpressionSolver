@@ -1,36 +1,36 @@
-#include "../mathTree.h"
+#include "../Expr.h"
 
-mathTree::mathTree()
+Expr::Expr()
 {
 	root = nullptr;
 }
 
-mathTree::mathTree(std::string expression) : mathTree()
+Expr::Expr(std::string expression) : Expr()
 {
 	set(expression);
 }
 
-mathTree::mathTree(const mathTree &tree)
+Expr::Expr(const Expr &tree)
 {
 	variables = tree.variables;
 	valuesVariables = tree.valuesVariables;
 	root = new mathNode(*tree.root);
 }
 
-mathTree::~mathTree()
+Expr::~Expr()
 {
 	if (root)
 		clear();
 }
 
-mathTree &mathTree::operator=(const mathTree &tree)
+Expr &Expr::operator=(const Expr &tree)
 {
 	clear();
 	root = new mathNode(*tree.root);
 	return *this;
 }
 
-void mathTree::set(std::string expression)
+void Expr::set(std::string expression)
 {
 	if (root)
 		delete root;
@@ -38,12 +38,12 @@ void mathTree::set(std::string expression)
 		root = parseNode(delBrackets(expression));
 }
 
-mathNode *mathTree::getTree()
+mathNode *Expr::getTree()
 {
 	return root;
 }
 
-void mathTree::clear()
+void Expr::clear()
 {
 	variables.clear();
 	valuesVariables.clear();
@@ -52,7 +52,7 @@ void mathTree::clear()
 	root = nullptr;
 }
 
-void mathTree::print(std::ostream &streamOut, bool showTypeNodes, bool showAdress)
+void Expr::print(std::ostream &streamOut, bool showTypeNodes, bool showAdress)
 {
 	if (root)
 	{
@@ -63,7 +63,7 @@ void mathTree::print(std::ostream &streamOut, bool showTypeNodes, bool showAdres
 	else
 		streamOut << "no expression" << std::endl;
 }
-void mathTree::init()
+void Expr::init()
 {
 	double inputValues;
 	std::cout << "input values:" << std::endl;
@@ -74,21 +74,21 @@ void mathTree::init()
 		valuesVariables.push_back(inputValues);
 	}
 }
-void mathTree::init(std::vector<double> val)
+void Expr::init(std::vector<double> val)
 {
 	if (val.size() == variables.size())
 		valuesVariables = val;
 }
-void mathTree::clearValues()
+void Expr::clearValues()
 {
 	valuesVariables.clear();
 }
 
-double mathTree::calc()
+double Expr::calc()
 {
 	return root->getResult(variables, valuesVariables);
 }
-double mathTree::calc(std::vector<double> val)
+double Expr::calc(std::vector<double> val)
 {
 	init(val);
 	double res = calc();
@@ -96,7 +96,7 @@ double mathTree::calc(std::vector<double> val)
 	return res;
 }
 
-mathTree mathTree::replaceRoot(std::string act, const mathTree &l, const mathTree &r)
+Expr Expr::replaceRoot(std::string act, const Expr &l, const Expr &r)
 {
 	mathNode::Types tp;
 	if (act == "=" || act == "+" || act == "-" || act == "*" || act == "/")
@@ -112,37 +112,37 @@ mathTree mathTree::replaceRoot(std::string act, const mathTree &l, const mathTre
 	return *this;
 }
 
-mathTree mathTree::operator==(const mathTree &r)
+Expr Expr::operator==(const Expr &r)
 {
 	return replaceRoot("=", *this, copy(r));
 }
 
-mathTree mathTree::operator+(const mathTree &r)
+Expr Expr::operator+(const Expr &r)
 {
 	return replaceRoot("+", *this, copy(r));
 }
 
-mathTree mathTree::operator-(const mathTree &r)
+Expr Expr::operator-(const Expr &r)
 {
 	return replaceRoot("-", *this, copy(r));
 }
 
-mathTree mathTree::operator*(const mathTree &r)
+Expr Expr::operator*(const Expr &r)
 {
 	return replaceRoot("*", *this, copy(r));
 }
 
-mathTree mathTree::operator/(const mathTree &r)
+Expr Expr::operator/(const Expr &r)
 {
 	return replaceRoot("/", *this, copy(r));
 }
 
-mathTree copy(const mathTree &ref)
+Expr copy(const Expr &ref)
 {
-	return mathTree(ref);
+	return Expr(ref);
 }
 
-mathNode *mathTree::parseNode(std::string expression)
+mathNode *Expr::parseNode(std::string expression)
 {
 	for (auto it = priorityOperators.end() - 1; it >= priorityOperators.begin(); it--)
 		for (size_t i(0); i < expression.size(); i++)
@@ -196,7 +196,7 @@ mathNode *mathTree::parseNode(std::string expression)
 	return new mathNode(expression, mathNode::Types::UNDEF); //undefine
 }
 
-mathTree toTree(std::string arg)
+Expr toTree(std::string arg)
 {
-	return mathTree(arg);
+	return Expr(arg);
 }

@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 #include <cmath>
-#include "strAndNum.h"
+#include "../supportingClasses/strAndNum.h"
 
 
 #define LINE_V 179

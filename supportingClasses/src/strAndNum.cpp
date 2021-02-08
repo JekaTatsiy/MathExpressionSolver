@@ -22,10 +22,14 @@ double toNumber(std::string str)
 		if (i != pointPos)
 		{
 			p = pointPos - i - 1 + int(i > pointPos);
-			num += double(str[i] - 48) * pow(double(10), double(p));
+			num += double(charToNumber(str[i])) * pow(double(10), double(p));
 		}
 
 	return num * (it == str.begin() ? 1 : -1);
+}
+int charToNumber(char sym)
+{
+	return sym-48;
 }
 
 std::string toString(double num, int precision)

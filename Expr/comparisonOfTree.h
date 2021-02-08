@@ -2,8 +2,8 @@
 #define COMPARISON_OF_TREE_H
 
 #include "mathNode.h"
-#include "mathTree.h"
-#include "strAndNum.h"
+#include "Expr.h"
+#include "../supportingClasses/strAndNum.h"
 #include <list>
 #include <string>
 

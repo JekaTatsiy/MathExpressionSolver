@@ -1,6 +1,7 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 #include "../Matrix/matrix.h"
+#include "../supportingClasses/str.h"
 
 /*
 ┌─┬─┬─┬─┬─┬─┬─┬─┐
@@ -33,20 +34,19 @@
 #define MATR    0b01000000
 
 
-class number{
+class Number{
     char info;
     char* num_byte;
     int separator;
     smartMatrix* matr;
 
-    void initAsInt(char* line,size)
+    void initAsINT(str);
+    void initAsFLT(str);
+    void initAsVAR(str);
 
 public:
-    number(char* input_line, char type=INT)
-    {
-
-    }
-
+    Number(str, char = INT);
+    Number(smartMatrix*);
 };
 
 

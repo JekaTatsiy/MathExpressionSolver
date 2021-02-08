@@ -8,18 +8,18 @@
 #include "mathNode.h"
 
 //contain math expression in the form a tree
-class mathTree
+class Expr
 {
 public:
 	//create and delete
-	mathTree();
-	mathTree(std::string);
-	mathTree(const mathTree &);
-	~mathTree();
+	Expr();
+	Expr(std::string);
+	Expr(const Expr &);
+	~Expr();
 
 	void set(std::string);
 
-	mathTree &operator=(const mathTree &);
+	Expr &operator=(const Expr &);
 
 	//returned root node
 	mathNode *getTree();
@@ -39,14 +39,14 @@ public:
 	double calc();
 	double calc(std::vector<double>);
 
-	mathTree replaceRoot(std::string, const mathTree &, const mathTree &);
-	mathTree operator==(const mathTree &);
-	mathTree operator+(const mathTree &);
-	mathTree operator-(const mathTree &);
-	mathTree operator*(const mathTree &);
-	mathTree operator/(const mathTree &);
+	Expr replaceRoot(std::string, const Expr &, const Expr &);
+	Expr operator==(const Expr &);
+	Expr operator+(const Expr &);
+	Expr operator-(const Expr &);
+	Expr operator*(const Expr &);
+	Expr operator/(const Expr &);
 
-	friend mathTree copy(const mathTree &ref);
+	friend Expr copy(const Expr &ref);
 
 private:
 	mathNode *root;
@@ -57,6 +57,6 @@ private:
 	mathNode *parseNode(std::string);
 };
 
-mathTree toTree(std::string);
+Expr toTree(std::string);
 
 #endif

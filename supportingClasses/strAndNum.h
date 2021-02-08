@@ -10,6 +10,7 @@
 bool belong(int beginValue, int endValue, int targetValue);
 
 double toNumber(std::string str);
+int charToNumber(char sym);
 std::string toString(double num, int precision);
 char numToChar(int num);
 

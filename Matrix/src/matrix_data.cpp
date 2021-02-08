@@ -6,7 +6,7 @@ inline int len(int v)
 {
 	return log10(abs(v)) + 1 + (v < 0);
 }
-int len(mathTree v)
+int len(Expr v)
 {
 	return 1;
 }
