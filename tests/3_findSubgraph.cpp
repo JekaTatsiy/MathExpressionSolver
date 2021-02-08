@@ -3,9 +3,12 @@
 #include <string.h>
 #include <iomanip>
 
-#include "../MathExpr/mathExpr.h"
+#include "../Expr/Expr.h"
+#include "../ExprReplace/comparisonOfTree.h"
+#include "../MathSolver.h"
 
 using namespace std;
+using namespace mathSolver;
 
 int main(int argc, char **argv)
 {
@@ -33,8 +36,8 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	mathTree expr;
-	mathTree tmpl;
+	Expr expr;
+	Expr tmpl;
 	typeReplace repl;
 	mathNode *curAns;
 

@@ -3,9 +3,11 @@
 #include <string.h>
 #include <iomanip>
 
-#include "../MathExpr/mathExpr.h"
+#include "../Expr/Expr.h"
+#include "../MathSolver.h"
 
 using namespace std;
+using namespace mathSolver;
 
 int main(int argc, char **argv)
 {
@@ -20,7 +22,7 @@ int main(int argc, char **argv)
 		{"", "a", "x+y", "a+b+c", "a*(b+c)", "a*b+c", "(a+b)/(c-d)", "a+(b*c^2)",
 		 "1+2+3+x", "1+2+3+x", "sin(a^2)^(1/2)", "log(2,e)"};
 
-	mathTree testTree;
+	Expr testTree;
 	for (auto i : inputData)
 	{
 		testTree.set(i);

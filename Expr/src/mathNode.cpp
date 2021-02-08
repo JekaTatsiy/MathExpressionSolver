@@ -1,5 +1,7 @@
 #include "../mathNode.h"
 
+USING_MATSOLV
+
 mathNode::mathNode(mathNode &node)
 {
 	arg = node.arg;

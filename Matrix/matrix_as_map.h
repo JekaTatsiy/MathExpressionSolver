@@ -1,9 +1,11 @@
-#pragma once
 #ifndef MATRIX_AS_MAP_H
 #define MATRIX_AS_MAP_H
+
+#include "../MathSolver.h"
+#include "Matrix.h"
 //use matrix as map
-
-
+BEG_MATSOLV
+USING_MATSOLV
 template <class Type>
 class matrix_as_map : public matrix_data<Type>{
 public:
@@ -27,5 +29,5 @@ public:
 };
 
 #include "src/matrix_as_map.cpp"
-
+END_MATSOLV
 #endif

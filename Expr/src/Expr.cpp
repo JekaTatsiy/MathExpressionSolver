@@ -1,5 +1,9 @@
 #include "../Expr.h"
 
+
+USING_MATSOLV
+
+
 Expr::Expr()
 {
 	root = nullptr;
@@ -137,10 +141,11 @@ Expr Expr::operator/(const Expr &r)
 	return replaceRoot("/", *this, copy(r));
 }
 
-Expr copy(const Expr &ref)
+int Expr::len(Expr v)
 {
-	return Expr(ref);
+	return 1;
 }
+
 
 mathNode *Expr::parseNode(std::string expression)
 {
@@ -196,7 +201,16 @@ mathNode *Expr::parseNode(std::string expression)
 	return new mathNode(expression, mathNode::Types::UNDEF); //undefine
 }
 
+BEG_MATSOLV
+
+Expr copy(const Expr &ref)
+{
+	return Expr(ref);
+}
+
 Expr toTree(std::string arg)
 {
 	return Expr(arg);
 }
+
+END_MATSOLV

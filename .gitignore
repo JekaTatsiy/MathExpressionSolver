@@ -1,15 +1,6 @@
-#compiller files
-obj/
-obj_debug/
 tests/exec/
-
-#tmp files
-.*.*
-.*~
-.vscode/
-todo.txt
+/.**      
+/.*.*
 !.scip_compilation.txt
-
-#exec files
-**prog
-**.exe
+.*~
+*prog*

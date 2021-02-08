@@ -1,11 +1,15 @@
-#ifndef MATH_TREE_H
-#define MATH_TREE_H
+#ifndef EXPR_H
+#define EXPR_H
 
 #include <vector>
 #include <string>
 #include <algorithm>
 
 #include "mathNode.h"
+#include "../MathSolver.h"
+
+BEG_MATSOLV
+USING_MATSOLV
 
 //contain math expression in the form a tree
 class Expr
@@ -46,6 +50,8 @@ public:
 	Expr operator*(const Expr &);
 	Expr operator/(const Expr &);
 
+	int len(Expr);
+
 	friend Expr copy(const Expr &ref);
 
 private:
@@ -58,5 +64,7 @@ private:
 };
 
 Expr toTree(std::string);
+
+END_MATSOLV
 
 #endif

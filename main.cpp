@@ -1,9 +1,13 @@
 #include <iostream>
-#include "MathExpr/mathTree.h"
-using namespace std;
+#include "Number/Number.h"
+
+//using namespace std;
 int main()
 {
-   
-    //system("pause");
+    // list<int>
+    USING_MATSOLV
+      
+   // std::cout << int(TYPE(INT | FLT)) << std::endl;
+
     return 0;
 }

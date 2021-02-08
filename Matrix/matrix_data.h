@@ -1,4 +1,3 @@
-#pragma once
 #ifndef MATRIX_DATA_H
 #define MATRIX_DATA_H
 
@@ -10,7 +9,10 @@
 #include <assert.h>
 #include "matrix.h"
 
-
+#include "../MathSolver.h"
+#include "Matrix.h"
+BEG_MATSOLV
+USING_MATSOLV
 //base matrix operations with data
 template <class T>
 class matrix_data
@@ -67,5 +69,5 @@ public:
 };
 
 #include "src/matrix_data.cpp" 
-
+END_MATSOLV
 #endif

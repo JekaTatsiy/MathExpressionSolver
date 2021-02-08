@@ -1,24 +1,33 @@
-#include "../Number.h"
 #include <cassert>
+#include "../Number.h"
 
-void initAsINT(str line)
+USING_MATSOLV
+
+template <char T>
+void Number<T>::initAsINT(str line)
 {
-    while(!line.is_empty())
+    while (!line.is_empty())
     {
-        
     }
 }
-void initAsFLT(str line)
+template <char T>
+void Number<T>::initAsFLT(str line)
 {
 }
-void initAsVAR(str line)
+template <char T>
+void Number<T>::initAsVAR(str line)
 {
 }
-
-Number(str input_line, char type = INT)
+template <char T>
+Number<T>::Number()
 {
-    info |= type;
-    switch (type)
+    num_byte = nullptr;
+    separator = 0;
+}
+template <char T>
+Number<T>::Number(str input_line)
+{
+    switch (T)
     {
     case INT:
         initAsINT(input_line);
@@ -34,8 +43,21 @@ Number(str input_line, char type = INT)
         assert("error type");
     }
 }
-Number(smartMatrix *input_matr)
+template <char T>
+Number<T>::Number(str input_line, char type) : Number(input_line)
 {
+    info |= type;
+}
+template <char T>
+Number<T>::Number(smartMatrix *input_matr)
+{
+    if (TYPE(T) != MATR)
+        assert("different types");
     info |= MATR;
     matr = input_matr;
+}
+template <char T>
+char Number<T>::getInfo()
+{
+    return info;
 }

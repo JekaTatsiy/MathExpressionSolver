@@ -3,9 +3,11 @@
 #include <string.h>
 #include <iomanip>
 
-#include "../MathExpr/mathExpr.h"
+#include "../Expr/Expr.h"
+#include "../MathSolver.h"
 
 using namespace std;
+using namespace mathSolver;
 
 void printVec(vector<double> v)
 {
@@ -33,7 +35,7 @@ int main(int argc, char **argv)
 
 	int allAns = inputTree.size();
 	int correctAns = 0;
-	mathTree testTree;
+	Expr testTree;
 	for (int i = 0; i < inputTree.size(); i++)
 	{
 		testTree.set(inputTree[i]);

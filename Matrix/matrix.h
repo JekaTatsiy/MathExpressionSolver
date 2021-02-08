@@ -9,7 +9,11 @@
 #include <assert.h>
 using namespace std;
 
+#include "../MathSolver.h"
 #include "../Expr/Expr.h"
+
+BEG_MATSOLV
+USING_MATSOLV
 
 #ifndef CORRECT_ADRES
 	#ifdef ADDRESSES_AS_MATH
@@ -18,7 +22,6 @@ using namespace std;
 		#define CORRECT_ADRES 0
 	#endif
 #endif
-
 
 #define S_VOID 0
 #define S_BRACKETS 1
@@ -35,33 +38,34 @@ using namespace std;
 #define M_INPUT_INT [](int i, int j) -> int { int v; cin >> v; return v; }
 #define M_INPUT_FLT [](int i, int j) -> float { float v; cin >> v; return v; }
 
-
 #define CALC true
 #define NO_CALC false
 
-//base matrix operations with data
-template <class T>
-class matrix_data;
+	//base matrix operations with data
+	template <class T>
+	class matrix_data;
 
-//base matrix operations from linear algebra
-template <class T>
-class matrix_base_op;
+	//base matrix operations from linear algebra
+	template <class T>
+	class matrix_base_op;
 
-//use matrix as map
-template <class T>
-class matrix_as_map;
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//use matrix as map
+	template <class T>
+	class matrix_as_map;
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #include "matrix_data.h"
 #include "matrix_base_op.h"
 #include "matrix_as_map.h"
 #include "smartMatrix.h"
 
-typedef vector<vector<int>> intVecMatr;
-typedef vector<vector<float>> fltVecMatr;
-typedef matrix_base_op<int> intMatr;
-typedef matrix_base_op<float> fltMatr;
-typedef matrix_as_map<int> intMap;
-typedef matrix_as_map<float> fltMap;
+	typedef vector<vector<int>> intVecMatr;
+	typedef vector<vector<float>> fltVecMatr;
+	typedef matrix_base_op<int> intMatr;
+	typedef matrix_base_op<float> fltMatr;
+	typedef matrix_as_map<int> intMap;
+	typedef matrix_as_map<float> fltMap;
+
+END_MATSOLV
 
 #endif

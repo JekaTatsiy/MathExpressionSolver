@@ -1,5 +1,6 @@
-#pragma once
 #include "../list.h"
+
+USING_MATSOLV
 
 template <typename T>
 list<T>::list()

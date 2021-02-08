@@ -1,6 +1,6 @@
 #include "../comparisonOfTree.h"
-#include "../mathNode.h"
 
+USING_MATSOLV
 
 void typeReplace::addEqual(std::string templ, mathNode* node)
 {
@@ -31,7 +31,7 @@ void typeReplace::print()
 
 }
 
-mathNode* existEqualSubgraph(mathNode *tree, mathNode *templ, typeReplace &curReplace, char flags)
+mathNode* MATSOLV::existEqualSubgraph(mathNode *tree, mathNode *templ, typeReplace &curReplace, char flags)
 {
 	if (templ->type==mathNode::Types::VAR && isBigVariable(templ->arg)) //tree оказался подходящим для шаблона templ
 	{
@@ -116,7 +116,7 @@ mathNode* existEqualSubgraph(mathNode *tree, mathNode *templ, typeReplace &curRe
 	return nullptr;
 }	
 
-std::list<mathNode*> getCommutativeOperands(mathNode* tree, std::string oper)
+std::list<mathNode*> MATSOLV::getCommutativeOperands(mathNode* tree, std::string oper)
 {
 	std::list<mathNode*> res;
 	for(auto param: tree->params)

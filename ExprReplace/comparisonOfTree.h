@@ -1,11 +1,14 @@
 #ifndef COMPARISON_OF_TREE_H
 #define COMPARISON_OF_TREE_H
-
-#include "mathNode.h"
-#include "Expr.h"
-#include "../supportingClasses/strAndNum.h"
 #include <list>
 #include <string>
+#include "../Expr/mathNode.h"
+#include "../Expr/Expr.h"
+#include "../SupCls/SupCls.h"
+#include "../MathSolver.h"
+
+BEG_MATSOLV
+USING_MATSOLV
 
 #define NOTHING 		char(0x00)
 #define WAS_COLLISION 	char(0x01) //гарантирует что предыдущие узлы совпали
@@ -27,6 +30,8 @@ mathNode* existEqualSubgraph(mathNode *, mathNode *, typeReplace&, char = NOTHIN
 std::list<mathNode*> getCommutativeOperands(mathNode*, std::string);
 
 void replace(mathNode *, mathNode *, typeReplace *);
+
+END_MATSOLV
 
 #endif
 

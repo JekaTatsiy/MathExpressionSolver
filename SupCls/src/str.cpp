@@ -1,5 +1,7 @@
 #include "../str.h"
 
+USING_MATSOLV
+
 int strlen(const char *line)
 {
     int i = 0;
@@ -24,7 +26,7 @@ str::~str()
     clear();
 }
 
-std::ostream &operator<<(std::ostream &os, const str &at)
+/*std::ostream &operator<<(std::ostream &os, const str &at)
 {
     for (int i = 0; i < at.length; os << at.data[i], i++)
         ;
@@ -34,7 +36,7 @@ std::ostream &operator<<(std::ostream &os, const str &at)
 void str::print()
 {
     std::cout << *this << std::endl;
-}
+}*/
 
 str &str::operator=(const char *other)
 {
