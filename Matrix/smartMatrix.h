@@ -3,7 +3,6 @@
 
 #include "Matrix.h"
 
-BEG_MATSOLV
 USING_MATSOLV
 
 class smartMatrix : public matrix_base_op<Expr>
@@ -28,6 +27,6 @@ class smartMatrix : public matrix_base_op<Expr>
 	friend matrix_base_op<Expr> operator*(matrix_base_op<Expr>, Expr);
 
 };
-END_MATSOLV
+
 
 #endif

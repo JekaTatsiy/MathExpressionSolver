@@ -59,12 +59,13 @@ USING_MATSOLV
 #include "matrix_as_map.h"
 #include "smartMatrix.h"
 
-	typedef vector<vector<int>> intVecMatr;
+/*	typedef vector<vector<int>> intVecMatr;
 	typedef vector<vector<float>> fltVecMatr;
 	typedef matrix_base_op<int> intMatr;
 	typedef matrix_base_op<float> fltMatr;
 	typedef matrix_as_map<int> intMap;
 	typedef matrix_as_map<float> fltMap;
+*/
 
 END_MATSOLV
 

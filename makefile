@@ -126,3 +126,4 @@ clear: clearObj clearTests clearVim
 
 include $(wildcard $(TESTS_EXEC_DIR)/*.d)
 include $(wildcard $(OBJ_DIR)/*d)
+include $(EXEC).d

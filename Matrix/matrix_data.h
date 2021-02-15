@@ -11,7 +11,7 @@
 
 #include "../MathSolver.h"
 #include "Matrix.h"
-BEG_MATSOLV
+
 USING_MATSOLV
 //base matrix operations with data
 template <class T>
@@ -69,5 +69,5 @@ public:
 };
 
 #include "src/matrix_data.cpp" 
-END_MATSOLV
+
 #endif

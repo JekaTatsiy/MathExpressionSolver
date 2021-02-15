@@ -39,10 +39,7 @@ template <typename T>
 inline matrix_data<T>::matrix_data(const matrix_data<T> &m) : matrix_data(m.rows, m.columns, m.style) { initMatrix(m.matr); }
 
 template <typename T>
-inline matrix_data<T>::~matrix_data()
-{
-	erase();
-}
+inline matrix_data<T>::~matrix_data() { erase(); }
 
 //~~~~~~~~~~~~~~~~~~~~~~
 //~~~~ modification ~~~~

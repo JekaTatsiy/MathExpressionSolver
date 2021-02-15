@@ -9,7 +9,7 @@ using namespace std;
 
 #include "../MathSolver.h"
 #include "Matrix.h"
-BEG_MATSOLV
+
 USING_MATSOLV
 //base matrix operations from linear algebra
 template <class Type>
@@ -54,5 +54,5 @@ public:
 };
 
 #include "src/matrix_base_op.cpp"
-END_MATSOLV
+
 #endif
