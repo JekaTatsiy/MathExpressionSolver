@@ -50,7 +50,7 @@ TESTS_EXEC = $(TESTS_SRC:$(TESTS_SRC_DIR)/%.cpp=$(TESTS_EXEC_DIR)/%$(EXEC_TYPE))
 .PHONY: default test clearObj clearTests clearVim clear
 ###################################################
 
-bld: $(EXEC)$(EXEC_TYPE)
+bld: init $(EXEC)$(EXEC_TYPE)
 all: release test
 deb: debug
 del: clear
@@ -126,4 +126,4 @@ clear: clearObj clearTests clearVim
 
 include $(wildcard $(TESTS_EXEC_DIR)/*.d)
 include $(wildcard $(OBJ_DIR)/*d)
-include $(EXEC).d
+-include $(EXEC).d
